@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LIVE CLASS | STUDY-WORLD</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Theme Variables */
+        :root {
+            /* Default Theme - Neon Cyberpunk */
+            --primary-color: #00ffff; /* neon blue */
+            --secondary-color: #ff00ff; /* neon pink */
+            --accent-color: #9d00ff; /* neon purple */
+            --highlight-color: #00ffcc; /* neon teal */
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(0, 0, 0, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, #00ff00, var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        /* Ocean Theme */
+        .theme-ocean {
+            --primary-color: #00a8ff; /* ocean blue */
+            --secondary-color: #0097e6; /* deeper blue */
+            --accent-color: #00d2d3; /* teal */
+            --highlight-color: #5f27cd; /* purple */
+            --dark-bg: #1e3799;
+            --darker-bg: #0c2461;
+            --glass-bg: rgba(14, 36, 97, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --header-bg: rgba(12, 36, 97, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(12, 36, 97, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, var(--accent-color), var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 168, 255, 0.3);
+        }
+        
+        /* Sunset Theme */
+        .theme-sunset {
+            --primary-color: #ff9f43; /* orange */
+            --secondary-color: #ee5253; /* red */
+            --accent-color: #ff6b6b; /* light red */
+            --highlight-color: #feca57; /* yellow */
+            --dark-bg: #2c2c54;
+            --darker-bg: #1e1e30;
+            --glass-bg: rgba(44, 44, 84, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(30, 30, 48, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(30, 30, 48, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, var(--accent-color), var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(255, 159, 67, 0.3);
+        }
+        
+        /* Forest Theme */
+        .theme-forest {
+            --primary-color: #26de81; /* green */
+            --secondary-color: #10ac84; /* dark green */
+            --accent-color: #2bcbba; /* teal */
+            --highlight-color: #a3cb38; /* lime */
+            --dark-bg: #1e272e;
+            --darker-bg: #0f1417;
+            --glass-bg: rgba(30, 39, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(15, 20, 23, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(15, 20, 23, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, var(--accent-color), var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(38, 222, 129, 0.3);
+        }
+        
+        /* Midnight Theme */
+        .theme-midnight {
+            --primary-color: #a55eea; /* purple */
+            --secondary-color: #8854d0; /* darker purple */
+            --accent-color: #d1d8e0; /* light gray */
+            --highlight-color: #778ca3; /* blue gray */
+            --dark-bg: #2f3542;
+            --darker-bg: #1e1f26;
+            --glass-bg: rgba(47, 53, 66, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(30, 31, 38, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(30, 31, 38, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, var(--accent-color), var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(165, 94, 234, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--header-bg);
+            backdrop-filter: blur(15px);
+            position: relative;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(157, 0, 255, 0.2);
+            padding: 1rem 0;
+            text-align: center;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid var(--logo-border);
+            box-shadow: var(--logo-shadow);
+            transition: all 0.3s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px var(--logo-border);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--logo-border), 0 0 30px rgba(0, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 10px var(--logo-border);
+            }
+        }
+        
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% auto;
+            animation: shine 3s linear infinite;
+            transition: background 0.5s ease;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 300% center;
+            }
+        }
+        
+        /* Video Container Styles */
+        .video-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        /* Class Cards Styles */
+        .class-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .class-card {
+            background-color: var(--glass-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 255, 255, 0.3);
+        }
+        
+        .class-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .class-card p {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .class-status {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .join-button {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .join-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .class-cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .class-card {
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+            
+            .class-card {
+                padding: 20px;
+            }
+            
+            .class-card h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .theme-button {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .theme-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+        
+        .theme-options {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            width: 150px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-option {
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .theme-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .theme-color.cyberpunk {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+        }
+        
+        .theme-color.ocean {
+            background: linear-gradient(45deg, #00a8ff, #00d2d3);
+        }
+        
+        .theme-color.sunset {
+            background: linear-gradient(45deg, #ff9f43, #ee5253);
+        }
+        
+        .theme-color.forest {
+            background: linear-gradient(45deg, #26de81, #10ac84);
+        }
+        
+        .theme-color.midnight {
+            background: linear-gradient(45deg, #a55eea, #8854d0);
+        }
+        
+        .theme-options.show {
+            display: flex;
+        }
+        
+        /* Custom Modal Styles */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .custom-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: var(--glass-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--primary-color);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .custom-modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine-effect 3s infinite;
+        }
+        
+        @keyframes shine-effect {
+            0% {
+                top: -50%;
+                left: -50%;
+            }
+            100% {
+                top: 150%;
+                left: 150%;
+            }
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+        
+        .modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: white;
+            line-height: 1.5;
+        }
+        
+        .modal-button {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .modal-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+        
+        /* Video Title */
+        .video-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: text-flicker 5s linear infinite;
+            transition: background 0.5s ease;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes text-flicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            92% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            93% {
+                opacity: 0.8;
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            94% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            97% {
+                opacity: 0.9;
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+            98% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                <span class="logo-text">STUDY-WORLD</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="theme-switcher">
+        <button class="theme-button" id="theme-toggle">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div class="theme-options" id="theme-options">
+            <div class="theme-option" data-theme="default">
+                <span class="theme-color cyberpunk"></span>
+                <span>Cyberpunk</span>
+            </div>
+            <div class="theme-option" data-theme="ocean">
+                <span class="theme-color ocean"></span>
+                <span>Ocean</span>
+            </div>
+            <div class="theme-option" data-theme="sunset">
+                <span class="theme-color sunset"></span>
+                <span>Sunset</span>
+            </div>
+            <div class="theme-option" data-theme="forest">
+                <span class="theme-color forest"></span>
+                <span>Forest</span>
+            </div>
+            <div class="theme-option" data-theme="midnight">
+                <span class="theme-color midnight"></span>
+                <span>Midnight</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="video-wrapper">
+        <h1 class="video-title">Live Classes</h1>
+        
+        <div class="class-cards-container">
+            <!-- Class 1 Card -->
+            <div class="class-card">
+                <h2>PCMB - Class 1</h2>
+                <p>Evening Class</p>
+                <p>Time: 5:15 PM – 6:40 PM</p>
+                <p id="class1-status" class="class-status">Class Over</p>
+                <button id="join-live-1" class="join-button" onclick="joinClass(1)">Join Live</button>
+            </div>
+
+            <!-- Class 2 Card -->
+            <div class="class-card">
+                <h2>PCMB - Class 2</h2>
+                <p>Night Class</p>
+                <p>Time: 8:15 PM – 9:40 PM</p>
+                <p id="class2-status" class="class-status">Starts in <span id="countdown">53m</span></p>
+                <button id="join-live-2" class="join-button" onclick="joinClass(2)">Join Live</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="custom-modal">
+        <div class="modal-content">
+            <h3 class="modal-title">THIS PAGE SAYS</h3>
+            <p class="modal-message"></p>
+            <button class="modal-button">OK</button>
+        </div>
+    </div>
+    
+    <script>
+        // Disable right-click on the entire page
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable keyboard shortcuts that could be used to view source
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+U (View Source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+S (Save Page)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Obfuscate the page source by adding a lot of comments
+        (function() {
+            // Add a large number of comments to the HTML to make source viewing difficult
+            for (let i = 0; i < 5000; i++) {
+                document.body.appendChild(document.createComment('Source protection comment ' + Math.random().toString(36).substring(2)));
+            }
+        })();
+        
+        // Disable text selection on non-interactive elements
+        document.querySelectorAll('div:not(.custom-controls), h1, p, span').forEach(function(element) {
+            element.style.userSelect = 'none';
+            element.style.webkitUserSelect = 'none';
+            element.style.msUserSelect = 'none';
+            element.style.mozUserSelect = 'none';
+        });
+        
+        // Function to show custom modal
+        function showCustomModal(message) {
+            const modal = document.querySelector('.custom-modal');
+            const messageElement = modal.querySelector('.modal-message');
+            const closeButton = modal.querySelector('.modal-button');
+            
+            messageElement.textContent = message;
+            modal.classList.add('show');
+            
+            closeButton.addEventListener('click', function() {
+                modal.classList.remove('show');
+            }, { once: true });
+            
+            // Also close on click outside modal content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            }, { once: true });
+            
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modal.classList.remove('show');
+                }
+            }, { once: true });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeOptions = document.getElementById('theme-options');
+            const themeSelectors = document.querySelectorAll('.theme-option');
+            
+            // Theme switcher functionality
+            themeToggle.addEventListener('click', function() {
+                themeOptions.classList.toggle('show');
+            });
+            
+            // Close theme options when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!themeToggle.contains(e.target) && !themeOptions.contains(e.target)) {
+                    themeOptions.classList.remove('show');
+                }
+            });
+            
+            // Theme selection
+            themeSelectors.forEach(function(selector) {
+                selector.addEventListener('click', function() {
+                    const theme = this.getAttribute('data-theme');
+                    
+                    // Remove all theme classes
+                    document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest', 'theme-midnight');
+                    
+                    // Add selected theme class if not default
+                    if (theme !== 'default') {
+                        document.body.classList.add('theme-' + theme);
+                    }
+                    
+                    // Save theme preference
+                    localStorage.setItem('videoPlayerTheme', theme);
+                    
+                    // Hide theme options
+                    themeOptions.classList.remove('show');
+                });
+            });
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('videoPlayerTheme');
+            if (savedTheme && savedTheme !== 'default') {
+                document.body.classList.add('theme-' + savedTheme);
+            }
+            
+            /********************************************************************
+             * CLASS SCHEDULE CONFIGURATION
+             * 
+             * To change the class schedule, modify these time values below.
+             * Times are in 24-hour format (military time).
+             ********************************************************************/
+            
+            // CLASS 1 SCHEDULE (Evening Class)
+            const CLASS1_START_HOUR = 17;   // 5 PM
+            const CLASS1_START_MINUTE = 15; // 15 minutes
+            const CLASS1_END_HOUR = 18;     // 6 PM
+            const CLASS1_END_MINUTE = 40;   // 40 minutes
+            
+            // CLASS 2 SCHEDULE (Night Class)
+            const CLASS2_START_HOUR = 20;   // 8 PM
+            const CLASS2_START_MINUTE = 15; // 15 minutes
+            const CLASS2_END_HOUR = 21;     // 9 PM
+            const CLASS2_END_MINUTE = 40;   // 40 minutes
+            
+            // Convert class times to minutes for easier comparison
+            const class1StartTime = CLASS1_START_HOUR * 60 + CLASS1_START_MINUTE; // 5:15 PM in minutes
+            const class1EndTime = CLASS1_END_HOUR * 60 + CLASS1_END_MINUTE;      // 6:40 PM in minutes
+            const class2StartTime = CLASS2_START_HOUR * 60 + CLASS2_START_MINUTE; // 8:15 PM in minutes
+            const class2EndTime = CLASS2_END_HOUR * 60 + CLASS2_END_MINUTE;      // 9:40 PM in minutes
+            
+            // Class joining functionality
+            window.joinClass = function(classNumber) {
+                // Get current time
+                const currentTime = new Date();
+                const currentHour = currentTime.getHours();
+                const currentMinute = currentTime.getMinutes();
+                
+                // Convert current time to minutes since midnight for easier comparison
+                const currentTimeInMinutes = currentHour * 60 + currentMinute;
+                
+                if (classNumber === 1) {
+                    // If class is currently live
+                    if (currentTimeInMinutes >= class1StartTime && currentTimeInMinutes <= class1EndTime) {
+                        window.location.href = 'live3.html';
+                    } 
+                    // If class has already ended
+                    else if (currentTimeInMinutes > class1EndTime) {
+                        showCustomModal('Class khatam ho gayi beta dhyaan kidhar rehta hai aapka??');
+                    }
+                    // If class hasn't started yet
+                    else {
+                        showCustomModal('Thoda Wait karo jii class chalu nahi hui');
+                    }
+                } else if (classNumber === 2) {
+                    // If class is currently live
+                    if (currentTimeInMinutes >= class2StartTime && currentTimeInMinutes <= class2EndTime) {
+                        window.location.href = 'live4.html';
+                    }
+                    // If class has already ended
+                    else if (currentTimeInMinutes > class2EndTime) {
+                        showCustomModal('Class khatam ho gayi beta dhyaan kidhar rehta hai aapka??');
+                    }
+                    // If class hasn't started yet
+                    else {
+                        showCustomModal('Thoda Wait karo jii class chalu nahi hui');
+                    }
+                }
+            };
+
+            /**
+             * Updates the countdown timer and class status displays
+             * This function runs every second to keep the timers accurate
+             */
+            function updateCountdown() {
+                // Get current time
+                const currentTime = new Date();
+                const currentHour = currentTime.getHours();
+                const currentMinute = currentTime.getMinutes();
+                
+                // Convert current time to minutes since midnight for easier comparison
+                const currentTimeInMinutes = currentHour * 60 + currentMinute;
+                
+                /********************************************************************
+                 * CLASS 1 STATUS UPDATE (Evening Class)
+                 ********************************************************************/
+                const class1Status = document.getElementById('class1-status');
+                
+                // Check if Class 1 is currently live
+                if (currentTimeInMinutes >= class1StartTime && currentTimeInMinutes <= class1EndTime) {
+                    // Class 1 is happening right now
+                    class1Status.innerHTML = 'Live Now';
+                    class1Status.style.color = '#ff0000';
+                } 
+                // Check if Class 1 is in the future
+                else if (currentTimeInMinutes < class1StartTime) {
+                    // Calculate time remaining until Class 1 starts
+                    const minutesRemaining = class1StartTime - currentTimeInMinutes;
+                    const hoursRemaining = Math.floor(minutesRemaining / 60);
+                    const minsRemaining = minutesRemaining % 60;
+                    
+                    // Format the countdown display
+                    if (hoursRemaining > 0) {
+                        // Show hours and minutes if more than an hour remains
+                        class1Status.innerHTML = `Starts in <span>${hoursRemaining}h ${minsRemaining}m</span>`;
+                    } else {
+                        // Show only minutes if less than an hour remains
+                        class1Status.innerHTML = `Starts in <span>${minsRemaining}m</span>`;
+                    }
+                } 
+                // Class 1 has already ended
+                else {
+                    class1Status.innerHTML = 'Class Over';
+                }
+                
+                /********************************************************************
+                 * CLASS 2 STATUS UPDATE (Night Class)
+                 ********************************************************************/
+                const class2Status = document.getElementById('class2-status');
+                
+                // Check if Class 2 is currently live
+                if (currentTimeInMinutes >= class2StartTime && currentTimeInMinutes <= class2EndTime) {
+                    // Class 2 is happening right now
+                    class2Status.innerHTML = 'Live Now';
+                    class2Status.style.color = '#ff0000';
+                } 
+                // Check if Class 2 is in the future
+                else if (currentTimeInMinutes < class2StartTime) {
+                    // Calculate time remaining until Class 2 starts
+                    const minutesRemaining = class2StartTime - currentTimeInMinutes;
+                    const hoursRemaining = Math.floor(minutesRemaining / 60);
+                    const minsRemaining = minutesRemaining % 60;
+                    
+                    // Format the countdown display
+                    if (hoursRemaining > 0) {
+                        // Show hours and minutes if more than an hour remains
+                        class2Status.innerHTML = `Starts in <span id="countdown">${hoursRemaining}h ${minsRemaining}m</span>`;
+                    } else {
+                        // Show only minutes if less than an hour remains
+                        class2Status.innerHTML = `Starts in <span id="countdown">${minsRemaining}m</span>`;
+                    }
+                } 
+                // Class 2 has already ended
+                else {
+                    class2Status.innerHTML = 'Class Over';
+                }
+            }
+
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            
+            // Initialize countdown
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>

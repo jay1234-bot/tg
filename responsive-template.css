@@ -1,0 +1,293 @@
+/* Responsive Design Template for STUDY-WORLD
+   This file contains common responsive styles that can be applied to all pages */
+
+/* Base responsive styles */
+@media (max-width: 1200px) {
+    .nav-container, 
+    .footer-content, 
+    .footer-bottom,
+    .main-content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .page-header {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .logo-text {
+        font-size: 1.3rem;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .button-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    /* Tab navigation for subject pages */
+    .tab-nav {
+        padding: 0.8rem;
+    }
+    
+    .tab-button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0.8rem 1rem;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        transform-origin: center;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 6rem 0 1rem;
+        gap: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        justify-content: flex-start;
+    }
+    
+    .nav-links.active {
+        right: 0;
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 1.2rem 0;
+        font-size: 1.2rem;
+        transform: translateX(50px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        transition-delay: calc(var(--i) * 0.1s);
+    }
+    
+    .nav-links.active .nav-link {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+        padding: 0 1rem;
+        text-align: center;
+    }
+    
+    .button-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .banner-image {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+    
+    /* Hamburger menu animation */
+    .rotate-45 {
+        transform: translateY(9px) rotate(45deg) !important;
+    }
+    
+    .opacity-0 {
+        opacity: 0 !important;
+    }
+    
+    .rotate-neg-45 {
+        transform: translateY(-9px) rotate(-45deg) !important;
+    }
+    
+    /* Tab navigation for subject pages */
+    .tab-nav {
+        padding: 0.6rem;
+    }
+    
+    .tab-buttons {
+        gap: 0.5rem;
+    }
+    
+    .tab-button {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+    }
+    
+    .search-bar {
+        margin: 1rem 0;
+        width: 100%;
+    }
+    
+    /* Notification popup */
+    .notification-popup {
+        width: 90%;
+        right: 5%;
+        top: 70px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    .logo img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .main-content {
+        padding: 1rem 0.5rem;
+    }
+    
+    .grid-button {
+        padding: 15px;
+    }
+    
+    .button-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .button-text {
+        font-size: 1rem;
+    }
+    
+    /* Tab navigation for subject pages */
+    .tab-nav {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+    
+    .tab-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .tab-button {
+        flex: 1;
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .search-bar {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+    
+    /* Video player responsive styles */
+    .video-container {
+        height: auto;
+        min-height: 200px;
+    }
+    
+    .video-controls {
+        padding: 0.5rem;
+    }
+    
+    .control-button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Utility classes for responsive design */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.text-center-mobile {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .text-center-mobile {
+        text-align: center;
+    }
+    
+    .hide-on-mobile {
+        display: none !important;
+    }
+}
+
+/* Animations for responsive elements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Staggered animation for grid items */
+.grid-button {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.grid-button.animate-in {
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(var(--item-index) * 0.1s);
+}
