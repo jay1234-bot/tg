@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 11 - STUDY-WORLD</title>
+    <title>Prarambh ~ Humanities | STUDY-WORLD</title>
     <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
     <style>
         :root {
@@ -189,15 +189,34 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 2rem;
             position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .banner-image {
+            width: 100%;
+            max-width: 500px;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: none;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .banner-image:hover {
+            transform: scale(1.02);
         }
         
         .page-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             text-align: center;
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
             -webkit-background-clip: text;
@@ -235,188 +254,130 @@
             }
         }
         
-        .cards-container {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-            justify-content: center;
+        /* Button Grid Styles */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
         }
         
-        .resource-card {
-            width: 320px;
-            height: 420px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .grid-button {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            animation: subtle-glow 3s infinite alternate;
         }
         
-        .resource-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--neon-blue), 
-                var(--neon-purple), 
-                var(--neon-pink), 
-                var(--neon-teal));
-            background-size: 400% 400%;
-            z-index: -1;
-            border-radius: 22px;
-            animation: gradient-border 8s ease infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        @keyframes gradient-border {
+        @keyframes subtle-glow {
             0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.2);
             }
             100% {
-                background-position: 0% 50%;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 255, 255, 0.4);
             }
         }
         
-        .resource-card:hover {
-            transform: translateY(-20px) scale(1.05);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.6),
-                0 0 30px rgba(157, 0, 255, 0.3);
+        .grid-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.1), 
+                rgba(157, 0, 255, 0.1), 
+                rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
         
-        .resource-card:hover::before {
+        .grid-button:hover::before {
             opacity: 1;
         }
         
-        .resource-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 50%;
+        .button-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            padding: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        
+        .grid-button:hover .button-icon {
+            color: var(--neon-pink);
+            transform: scale(1.1);
+        }
+        
+        .button-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Live button specific styles */
+        .live-button {
             position: relative;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            animation: live-pulse 2s infinite alternate;
+            border-color: rgba(255, 0, 0, 0.3);
         }
         
-        .resource-card:hover .resource-icon {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        .live-button .button-icon {
+            color: #ff3333;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
-        .resource-icon i {
-            font-size: 3rem;
+        .live-indicator {
+            background: linear-gradient(90deg, #ff0000, #ff5555);
             color: white;
-            animation: icon-pulse 2s ease-in-out infinite alternate;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            animation: blink 1.5s infinite;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-shadow: none;
+            letter-spacing: 1px;
         }
         
-        @keyframes icon-pulse {
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes live-pulse {
             0% {
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 0, 0, 0.3);
             }
             100% {
-                text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-                transform: scale(1.1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 0, 0, 0.5);
             }
-        }
-        
-        .resource-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .resource-card:hover .resource-title {
-            letter-spacing: 2px;
-        }
-        
-        .resource-subtitle {
-            color: #ccc;
-            text-align: center;
-            padding: 0 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-        
-        .resource-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--neon-green), var(--neon-teal));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-            animation: badge-pulse 2s infinite alternate;
-        }
-        
-        @keyframes badge-pulse {
-            0% {
-                box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-            }
-            100% {
-                box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
-            }
-        }
-        
-        .resource-button {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        
-        .resource-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 10px 20px rgba(0, 0, 0, 0.4),
-                0 0 20px rgba(0, 255, 255, 0.3);
-        }
-        
-        .resource-button i {
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .resource-button:hover i {
-            transform: translateX(5px);
         }
         
         /* Footer Styles */
@@ -618,55 +579,15 @@
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0.8rem 1rem;
-            }
-            
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                flex-direction: column;
-                background-color: rgba(0, 0, 0, 0.9);
-                padding: 1rem 0;
-                gap: 0;
-                transform: translateY(-100%);
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s ease;
-            }
-            
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                padding: 1rem 0;
-            }
-            
-            .page-title {
-                font-size: 2.5rem;
-            }
-            
-            .cards-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 2rem;
-            }
-        }
+        /* Responsive styles moved to responsive-template.css */
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://ik.imagekit.io">
+    <!-- Responsive styles -->
+    <link rel="stylesheet" href="responsive-template.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -691,45 +612,92 @@
     </nav>
     
     <div class="main-content">
-        <h1 class="page-title">Class 11 Resources</h1>
+        <img src="https://ik.imagekit.io/krishan1234/humanity.jpg?updatedAt=1745756053216" alt="Prarambh ~ PCMB" class="banner-image">
+        <h1 class="page-title">Prarambh ~ Humanities</h1>
         
-        <div class="cards-container">
-            <a href="PCMB.html" class="resource-card">
-                <div class="resource-badge">Free</div>
-                <div class="resource-icon">
-                    <i class="fas fa-atom"></i>
+        <div class="button-grid">
+            <!-- Live Classes -->
+            <a href="wait.html" class="grid-button live-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-video"></i>
                 </div>
-                <h2 class="resource-title">Prarambh ~ PCMB</h2>
-                <p class="resource-subtitle">Advanced physics concepts and problem-solving techniques for Class 11 students.</p>
-                <button class="resource-button">
-                    <i class="fas fa-arrow-right"></i> Explore
-                </button>
+                <div class="button-text">Live Classes <span class="live-indicator">LIVE</span></div>
             </a>
             
-            <a href="commerce.html" class="resource-card">
-                <div class="resource-badge">Free</div>
-                <div class="resource-icon">
-                    <i class="fas fa-flask"></i>
+            <!-- Weekly Planner -->
+            <!-- <a href="https://eduverse-official.netlify.app/images/Wp2.jpg" class="grid-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-calendar-week"></i>
                 </div>
-                <h2 class="resource-title">Prarambh ~ Commerce</h2>
-                <p class="resource-subtitle">Best Lectures and notes for lass 11 commerce.</p>
-                <button class="resource-button">
-                    <i class="fas fa-arrow-right"></i> Explore
-                </button>
+                <div class="button-text">Weekly Planner</div>
+            </a> -->
+            
+            <!-- Time Table -->
+            <!-- <a href="https://eduverse-official.netlify.app/images/Tt2.jpg" class="grid-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="button-text">Time Table</div>
+            </a> -->
+            
+            <!--History-->
+            <a href="history.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="button-text">History</div>
             </a>
 
-            <!-- Humanities Card -->
-            <a href="humanities.html" class="resource-card">
-                <div class="resource-badge discount">New</div>
-                <div class="resource-icon">
-                    <img src="https://ik.imagekit.io/krishan1234/humanity.jpg?updatedAt=1745756053216" alt="Humanities Logo" style="width:48px;height:48px;border-radius:50%;background:#eee;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <!--political-science-->
+            <a href="politic.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-calculator"></i>
                 </div>
-                <h2 class="resource-title">Prarambh ~ Humanities</h2>
-                <p class="resource-subtitle">Best Lectures and notes for Class 11 Humanities students.</p>
-                <button class="resource-button" style="background:#4d7cff;color:#fff;font-weight:600;">
-                    <i class="fas fa-arrow-right"></i> Explore
-                </button>
+                <div class="button-text">Political-Science</div>
             </a>
+
+            <!--geography-->
+            <a href="geography.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="button-text">Geography</div>
+            </a>
+
+             <!-- Economics -->
+             <a href="ecomomics.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="button-text">Economics</div>
+            </a>
+           
+            
+            <!-- Accounts -->
+            <a href="accounts.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="button-text">Accounts</div>
+            </a>
+            
+            
+            <!--Mathematics-->
+            <a href="mathematics.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="button-text">Mathematics</div>
+            </a>
+
+            <!--Applied MATHEMATICS -->
+            <a href="appmathematics.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="button-text">Applied Mathematics</div>
+            </a>
+            
         </div>
     </div>
     
@@ -745,7 +713,6 @@
                     <a href="https://t.me/CENSORED_POLITICSS" class="social-icon" target="_blank">
                         <i class="fab fa-telegram"></i>
                     </a>
-              
                 </div>
             </div>
             
@@ -755,8 +722,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#about">About Us</a></li>
                     <li><a href="index.html#classes">Classes</a></li>
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                    <li><a href="next-toppers.html">Next Toppers</a></li>
                 </ul>
             </div>
             
@@ -775,7 +741,7 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="contact-text">
-                        info@studyworld.com
+                        krishan321@fearlessmails.com
                     </div>
                 </div>
                 <div class="contact-item">
@@ -790,26 +756,12 @@
         </div>
         
         <div class="footer-bottom">
-            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a></p>
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students.</p>
         </div>
     </footer>
     
     <!-- JavaScript for mobile menu toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.getElementById('nav-links');
-            
-            mobileMenu.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                
-                // Toggle menu icon
-                const spans = mobileMenu.querySelectorAll('span');
-                spans[0].classList.toggle('rotate-45');
-                spans[1].classList.toggle('opacity-0');
-                spans[2].classList.toggle('rotate-neg-45');
-            });
-        });
-    </script>
+    <!-- Responsive and animation script -->
+    <script src="responsive-script.js"></script>
 </body>
 </html>
