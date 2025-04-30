@@ -1240,6 +1240,138 @@
                 width: 50px;
             }
         }
+        
+        /* Popup Message Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.2),
+                0 0 40px rgba(157, 0, 255, 0.2);
+            animation: popupGlow 2s infinite alternate;
+        }
+
+        @keyframes popupGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.2),
+                           0 0 40px rgba(157, 0, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.4),
+                           0 0 60px rgba(157, 0, 255, 0.4);
+            }
+        }
+
+        .popup-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .popup-message {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .join-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .join-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .popup-close:hover {
+            color: var(--neon-pink);
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .popup-content {
+                padding: 1.5rem;
+            }
+
+            .popup-title {
+                font-size: 1.5rem;
+            }
+
+            .popup-message {
+                font-size: 1rem;
+            }
+
+            .join-button {
+                padding: 0.7rem 1.8rem;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1280,8 +1412,8 @@
         <!-- Tab Navigation -->
         <div class="tab-container">
             <div class="tab-nav">
-                <button class="tab-button active" data-tab="lectures">Lectures</button>
-                <button class="tab-button" data-tab="notes">Notes</button>
+                <button class="tab-button active" data-tab="lectures">Course-B</button>
+                <button class="tab-button" data-tab="notes">Course-A</button>
             </div>
             
             <!-- Search Bar -->
@@ -1386,7 +1518,7 @@
                 </div>
             </div>
             
-            <!-- Notes Tab Content -->
+            <!-- Course-A Tab Content -->
             <div class="tab-content" id="notes-tab">
                 <div class="button-grid">
                     <!-- Note 1 -->
@@ -1613,6 +1745,45 @@
             document.addEventListener('click', function(event) {
                 if (!notificationPopup.contains(event.target) && !notificationBtn.contains(event.target)) {
                     notificationPopup.classList.remove('show');
+                }
+            });
+        });
+    </script>
+
+    <!-- Popup Message -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" id="popup-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="popup-title">Join Our Community!</h2>
+            <p class="popup-message">For accessing all notes and study materials, join our Telegram group for exclusive content and updates.</p>
+            <a href="https://t.me/+2YdleaNQtnw4ZThl" class="join-button" target="_blank">
+                Join Now <i class="fab fa-telegram"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Popup functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupClose = document.getElementById('popup-close');
+
+            // Show popup when page loads
+            setTimeout(() => {
+                popupOverlay.classList.add('show');
+            }, 1000);
+
+            // Close popup when close button is clicked
+            popupClose.addEventListener('click', function() {
+                popupOverlay.classList.remove('show');
+            });
+
+            // Close popup when clicking outside
+            popupOverlay.addEventListener('click', function(event) {
+                if (event.target === popupOverlay) {
+                    popupOverlay.classList.remove('show');
                 }
             });
         });
