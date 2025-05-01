@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aarambh 2025 Batch - STUDY-WORLD</title>
+    <title>Class 9 - STUDY-WORLD</title>
     <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <meta name="description" content="Access free Class 10 study resources, notes, and lectures from STUDY-WORLD. Prepare for your board exams with our comprehensive materials.">
+    <meta name="theme-color" content="#080808">
     <style>
+        /* Custom Properties */
         :root {
             --neon-pink: #ff00ff;
             --neon-blue: #00ffff;
@@ -181,6 +184,7 @@
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
             border-radius: 3px;
             transition: all 0.3s ease;
+            transform-origin: center;
         }
         
         /* Main Content Styles */
@@ -189,34 +193,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 2rem;
             position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
             width: 100%;
-        }
-        
-        .banner-image {
-            width: 100%;
-            max-width: 500px;
-            max-height: 180px;
-            object-fit: contain;
-            border-radius: 20px;
-            margin: 0 auto 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: none;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .banner-image:hover {
-            transform: scale(1.02);
+            max-width: 100%;
+            overflow-x: hidden;
         }
         
         .page-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             text-align: center;
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
             -webkit-background-clip: text;
@@ -225,6 +213,9 @@
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
             position: relative;
             animation: text-flicker 5s linear infinite;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         
         @keyframes text-flicker {
@@ -254,130 +245,191 @@
             }
         }
         
-        /* Button Grid Styles */
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            width: 100%;
-            margin-top: 20px;
-        }
-        
-        .grid-button {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            position: relative;
+        .aarambh-card {
+            width: 350px;
+            height: 450px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
             overflow: hidden;
-            animation: subtle-glow 3s infinite alternate;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
         
-        @keyframes subtle-glow {
-            0% {
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.2);
-            }
-            100% {
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 255, 255, 0.4);
-            }
+        .animate-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
         
-        .grid-button::before {
+        .aarambh-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             background: linear-gradient(45deg, 
-                rgba(0, 255, 255, 0.1), 
-                rgba(157, 0, 255, 0.1), 
-                rgba(255, 0, 255, 0.1));
+                var(--neon-blue), 
+                var(--neon-purple), 
+                var(--neon-pink), 
+                var(--neon-teal));
+            background-size: 400% 400%;
+            z-index: -1;
+            border-radius: 22px;
+            animation: gradient-border 8s ease infinite;
             opacity: 0;
             transition: opacity 0.3s ease;
-            z-index: -1;
         }
         
-        .grid-button:hover::before {
+        @keyframes gradient-border {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .aarambh-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(157, 0, 255, 0.3);
+        }
+        
+        .aarambh-card:hover::before {
             opacity: 1;
         }
         
-        .button-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+        .aarambh-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-            padding: 8px;
+            margin-bottom: 2rem;
+            position: relative;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
         }
         
-        .grid-button:hover .button-icon {
-            color: var(--neon-pink);
+        .aarambh-card:hover .aarambh-logo {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        .aarambh-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        
+        .aarambh-card:hover .aarambh-logo img {
             transform: scale(1.1);
         }
         
-        .button-text {
+        .aarambh-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .aarambh-card:hover .aarambh-title {
+            letter-spacing: 2px;
+        }
+        
+        .aarambh-subtitle {
+            color: #ccc;
+            text-align: center;
+            padding: 0 1.5rem;
             font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            margin-bottom: 2rem;
         }
         
-        /* Live button specific styles */
-        .live-button {
-            position: relative;
-            animation: live-pulse 2s infinite alternate;
-            border-color: rgba(255, 0, 0, 0.3);
-        }
-        
-        .live-button .button-icon {
-            color: #ff3333;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-        }
-        
-        .live-indicator {
-            background: linear-gradient(90deg, #ff0000, #ff5555);
+        .aarambh-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-teal));
             color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: 8px;
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            animation: blink 1.5s infinite;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            text-shadow: none;
-            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            animation: badge-pulse 2s infinite alternate;
         }
         
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        @keyframes live-pulse {
+        @keyframes badge-pulse {
             0% {
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 0, 0, 0.3);
+                box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+                transform: scale(1.05);
             }
             100% {
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 0, 0, 0.5);
+                box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+                transform: scale(1);
             }
+        }
+        
+        .aarambh-button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .aarambh-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .aarambh-button i {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .aarambh-button:hover i {
+            transform: translateX(5px);
         }
         
         /* Footer Styles */
@@ -579,15 +631,143 @@
         }
         
         /* Responsive */
-        /* Responsive styles moved to responsive-template.css */
+        /* Responsive Styles - Enhanced */
+        @media (max-width: 1200px) {
+            .nav-container, .footer-content, .footer-bottom {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0.8rem 1rem;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 6rem 0 1rem;
+                gap: 0;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                justify-content: flex-start;
+            }
+            
+            .nav-links.active {
+                right: 0;
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 1.2rem 0;
+                font-size: 1.2rem;
+                transform: translateX(50px);
+                opacity: 0;
+                transition: all 0.3s ease;
+                transition-delay: calc(var(--i) * 0.1s);
+            }
+            
+            .nav-links.active .nav-link {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+            }
+            
+            .aarambh-card {
+                width: 100%;
+                max-width: 320px;
+                height: auto;
+                min-height: 420px;
+            }
+
+            .main-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .rotate-45 {
+                transform: translateY(9px) rotate(45deg) !important;
+            }
+            
+            .opacity-0 {
+                opacity: 0 !important;
+            }
+            
+            .rotate-neg-45 {
+                transform: translateY(-9px) rotate(-45deg) !important;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .aarambh-title {
+                font-size: 2rem;
+            }
+            
+            .aarambh-subtitle {
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-logo-text {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1rem 0.5rem;
+            }
+
+            .aarambh-card {
+                margin-top: 2rem;
+            }
+        }
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://ik.imagekit.io">
-    <!-- Responsive styles -->
-    <link rel="stylesheet" href="responsive-template.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -605,104 +785,33 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="index.html#about" class="nav-link">About Us</a></li>
-                <li><a href="index.html#classes" class="nav-link">Classes</a></li>
+                <li><a href="index.html#classes" class="nav-link active">Classes</a></li>
                 <li><a href="next-toppers.html" class="nav-link">Next Toppers</a></li>
             </ul>
         </div>
     </nav>
     
     <div class="main-content">
-        <img src="https://ik.imagekit.io/krishan1234/aarambh.jpg?updatedAt=1745226830878" alt="Aarambh 2025 Batch" class="banner-image">
-        <h1 class="page-title">Aarambh 2025 Batch</h1>
+        <h1 class="page-title">Class 9 Resources</h1>
         
-        <div class="button-grid">
-            <!-- Live Classes -->
-            <a href="live.html" class="grid-button live-button" target="_blank">
-                <div class="button-icon">
-                    <i class="fas fa-video"></i>
-                </div>
-                <div class="button-text">Live Classes <span class="live-indicator">LIVE</span></div>
-            </a>
-            
-            <!-- Weekly Planner -->
-            <a href="https://ik.imagekit.io/krishan1234/photo_2025-05-01_19-34-03.jpg?updatedAt=1746108293411" class="grid-button" target="_blank">
-                <div class="button-icon">
-                    <i class="fas fa-calendar-week"></i>
-                </div>
-                <div class="button-text">Weekly Planner</div>
-            </a>
-            
-            <!-- Time Table -->
-            <a href="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/sample/57643650_Aarambh%2010th%20Timetable.png" class="grid-button" target="_blank">
-                <div class="button-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="button-text">Time Table</div>
-            </a>
-            
-            <!-- Official Welcome Video -->
-            <a href="welcome.html" class="grid-button" target="_blank">
-                <div class="button-icon">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <div class="button-text">Official Welcome Video</div>
-            </a>
-            
-            <!-- Mathematics -->
-            <a href="class10-mathematics.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <div class="button-text">Mathematics</div>
-            </a>
-            
-            <!-- Science -->
-            <a href="class10-science.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-flask"></i>
-                </div>
-                <div class="button-text">Science</div>
-            </a>
-            
-            <!-- Social Science -->
-            <a href="class10-social-science.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-globe-americas"></i>
-                </div>
-                <div class="button-text">Social Science</div>
-            </a>
-            
-            <!-- Hindi -->
-            <a href="wait.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-language"></i>
-                </div>
-                <div class="button-text">Hindi</div>
-            </a>
-            
-            <!-- English -->
-            <a href="class10-english.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="button-text">English</div>
-            </a>
-            
-            <!-- IT -->
-            <a href="wait.html" class="grid-button">
-                <div class="button-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <div class="button-text">IT</div>
-            </a>
-        </div>
+        <a href="arambh9.html" class="aarambh-card">
+            <div class="aarambh-badge">New</div>
+            <div class="aarambh-logo">
+                <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Aarambh Logo">
+            </div>
+            <h2 class="aarambh-title">AARAMBH 25-26</h2>
+            <p class="aarambh-subtitle">Comprehensive study materials and lectures for Class 10 board exam preparation. Get ready for the academic year 2025-26.</p>
+            <button class="aarambh-button">
+                <i class="fas fa-rocket"></i> Get Started
+            </button>
+        </a>
     </div>
     
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
                 <div class="footer-logo-img">
-                    <img src="[https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689"](https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689") alt="STUDY-WORLD Logo">
+                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
                     <span class="footer-logo-text">STUDY-WORLD</span>
                 </div>
                 <p class="footer-description">Your gateway to academic excellence. We provide free educational resources for students of Class 10th and 11th.</p>
@@ -725,7 +834,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#about">About Us</a></li>
                     <li><a href="index.html#classes">Classes</a></li>
-                    <li><a href="next-toppers.html">Next Toppers</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
                 </ul>
             </div>
             
@@ -759,12 +869,62 @@
         </div>
         
         <div class="footer-bottom">
-            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students.</p>
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a></p>
         </div>
     </footer>
     
     <!-- JavaScript for mobile menu toggle -->
-    <!-- Responsive and animation script -->
-    <script src="responsive-script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-link');
+            
+            // Add animation delay to nav links
+            navLinksItems.forEach((link, index) => {
+                link.style.setProperty('--i', index);
+            });
+            
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Toggle menu icon
+                const spans = mobileMenu.querySelectorAll('span');
+                spans[0].classList.toggle('rotate-45');
+                spans[1].classList.toggle('opacity-0');
+                spans[2].classList.toggle('rotate-neg-45');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const spans = mobileMenu.querySelectorAll('span');
+                    spans[0].classList.remove('rotate-45');
+                    spans[1].classList.remove('opacity-0');
+                    spans[2].classList.remove('rotate-neg-45');
+                }
+            });
+
+            // Add scroll animation for elements
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.aarambh-card, .page-title').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
