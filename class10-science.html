@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -23,27 +24,27 @@
             --primary-blue: #0066ff;
             --light-blue: #4d94ff;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--dark-bg);
             color: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
                 radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
             position: relative;
             overflow-x: hidden;
         }
-        
+
         /* Navbar Styles */
         .navbar {
             background-color: rgba(0, 0, 0, 0.85);
@@ -52,11 +53,11 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
-            box-shadow: 
+            box-shadow:
                 0 5px 15px rgba(0, 0, 0, 0.5),
                 0 0 30px rgba(157, 0, 255, 0.2);
         }
-        
+
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -65,43 +66,45 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             position: relative;
             z-index: 2;
         }
-        
+
         .logo img {
             width: 45px;
             height: 45px;
             border-radius: 50%;
             margin-right: 12px;
             border: 2px solid var(--neon-blue);
-            box-shadow: 
+            box-shadow:
                 0 0 10px var(--neon-blue),
                 0 0 20px rgba(0, 255, 255, 0.3);
             transition: all 0.3s ease;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 10px var(--neon-blue);
             }
+
             50% {
                 box-shadow: 0 0 20px var(--neon-blue), 0 0 30px rgba(0, 255, 255, 0.3);
             }
+
             100% {
                 box-shadow: 0 0 10px var(--neon-blue);
             }
         }
-        
+
         .logo:hover img {
             transform: scale(1.1) rotate(5deg);
         }
-        
+
         .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
@@ -112,19 +115,19 @@
             background-size: 300% auto;
             animation: shine 3s linear infinite;
         }
-        
+
         @keyframes shine {
             to {
                 background-position: 300% center;
             }
         }
-        
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        
+
         .nav-link {
             color: white;
             text-decoration: none;
@@ -135,7 +138,7 @@
             font-size: 1.1rem;
             letter-spacing: 0.5px;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -147,26 +150,26 @@
             transition: width 0.3s ease;
             border-radius: 5px;
         }
-        
+
         .nav-link:hover {
             color: var(--neon-blue);
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .active {
             color: var(--neon-blue);
             text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
         }
-        
+
         .active::after {
             width: 100%;
             box-shadow: 0 0 10px var(--neon-blue);
         }
-        
+
         /* Notification Button Styles */
         .notification-btn {
             position: relative;
@@ -186,7 +189,7 @@
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
         }
-        
+
         /* Notification Popup Styles */
         .notification-popup {
             position: fixed;
@@ -206,13 +209,13 @@
             pointer-events: none;
             overflow: hidden;
         }
-        
+
         .notification-popup.show {
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
         }
-        
+
         .notification-popup::before {
             content: '';
             position: absolute;
@@ -226,7 +229,7 @@
             opacity: 0.5;
             animation: borderRotate 4s linear infinite;
         }
-        
+
         .notification-header {
             display: flex;
             justify-content: space-between;
@@ -235,14 +238,14 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
         }
-        
+
         .notification-title {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--neon-blue);
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
-        
+
         .notification-close {
             background: transparent;
             border: none;
@@ -251,17 +254,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .notification-close:hover {
             color: var(--neon-pink);
             transform: scale(1.1);
         }
-        
+
         .notification-content {
             margin-bottom: 15px;
             line-height: 1.5;
         }
-        
+
         .notification-contact {
             display: flex;
             align-items: center;
@@ -271,29 +274,29 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .notification-contact i {
             color: var(--neon-blue);
             font-size: 1.2rem;
         }
-        
+
         .notification-contact a {
             color: white;
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .notification-contact a:hover {
             color: var(--neon-blue);
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
-        
+
         .notification-btn:hover {
             color: var(--neon-blue);
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
-        
+
         .notification-badge {
             position: absolute;
             top: -5px;
@@ -311,19 +314,21 @@
             box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
             animation: pulse-badge 1.5s infinite;
         }
-        
+
         @keyframes pulse-badge {
             0% {
                 box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.7);
             }
+
             70% {
                 box-shadow: 0 0 0 6px rgba(255, 0, 255, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(255, 0, 255, 0);
             }
         }
-        
+
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -333,7 +338,7 @@
             cursor: pointer;
             z-index: 2;
         }
-        
+
         .menu-toggle span {
             display: block;
             height: 3px;
@@ -342,7 +347,7 @@
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-        
+
         /* Main Content Styles */
         .main-content {
             flex: 1;
@@ -355,7 +360,7 @@
             margin: 0 auto;
             width: 100%;
         }
-        
+
         .page-header {
             width: 100%;
             background: linear-gradient(90deg, var(--primary-blue), var(--light-blue));
@@ -371,18 +376,31 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.5s ease;
         }
-        
+
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
-        
+
         @keyframes pulseGlow {
-            0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 255, 0.2); }
-            100% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 255, 0.4); }
+            0% {
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 255, 0.2);
+            }
+
+            100% {
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 255, 0.4);
+            }
         }
-        
+
         .page-header::before {
             content: '';
             position: absolute;
@@ -390,7 +408,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%),
                 linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%),
                 linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.15) 75%),
@@ -400,12 +418,17 @@
             opacity: 0.4;
             animation: patternMove 20s linear infinite;
         }
-        
+
         @keyframes patternMove {
-            0% { background-position: 0 0, 0 15px, 15px -15px, -15px 0px; }
-            100% { background-position: 100px 100px, 100px 115px, 115px 85px, 85px 100px; }
+            0% {
+                background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            }
+
+            100% {
+                background-position: 100px 100px, 100px 115px, 115px 85px, 85px 100px;
+            }
         }
-        
+
         .page-header::after {
             content: '';
             position: absolute;
@@ -417,12 +440,17 @@
             opacity: 0.5;
             animation: shimmer 6s infinite linear;
         }
-        
+
         @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .page-title {
             font-size: 2.8rem;
             font-weight: 800;
@@ -434,12 +462,17 @@
             letter-spacing: 1px;
             animation: textGlow 3s ease-in-out infinite alternate;
         }
-        
+
         @keyframes textGlow {
-            0% { text-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 0, 255, 0.3); }
-            100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 0, 255, 0.5); }
+            0% {
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 0, 255, 0.3);
+            }
+
+            100% {
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 0, 255, 0.5);
+            }
         }
-        
+
         .page-title::after {
             content: '';
             position: absolute;
@@ -450,13 +483,24 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
             animation: lineMove 2s ease-in-out infinite;
         }
-        
+
         @keyframes lineMove {
-            0% { transform: scaleX(0.3); opacity: 0; }
-            50% { transform: scaleX(1); opacity: 1; }
-            100% { transform: scaleX(0.3); opacity: 0; }
+            0% {
+                transform: scaleX(0.3);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scaleX(0.3);
+                opacity: 0;
+            }
         }
-        
+
         .page-subtitle {
             font-size: 1.3rem;
             font-weight: 500;
@@ -466,18 +510,25 @@
             opacity: 0.9;
             animation: subtitlePulse 4s ease-in-out infinite alternate;
         }
-        
+
         @keyframes subtitlePulse {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.02); }
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
-        
+
         /* Tab Navigation */
         .tab-container {
             width: 100%;
             margin-bottom: 2rem;
         }
-        
+
         .tab-nav {
             display: flex;
             justify-content: center;
@@ -485,7 +536,7 @@
             margin-bottom: 2rem;
             position: relative;
         }
-        
+
         /* Animated swipe indicator */
         .tab-nav::after {
             content: '';
@@ -499,17 +550,17 @@
             filter: blur(1px);
             width: 80px;
         }
-        
+
         .tab-nav[data-active="lectures"]::after {
             left: calc(25% - 40px);
             transform: scaleX(1.2);
         }
-        
+
         .tab-nav[data-active="notes"]::after {
             left: calc(75% - 40px);
             transform: scaleX(1.2);
         }
-        
+
         .tab-button {
             padding: 0.8rem 2rem;
             background: rgba(0, 0, 0, 0.5);
@@ -525,7 +576,7 @@
             z-index: 1;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .tab-button::before {
             content: '';
             position: absolute;
@@ -537,18 +588,18 @@
             z-index: -1;
             transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        
+
         .tab-button:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.3);
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
             letter-spacing: 0.5px;
         }
-        
+
         .tab-button:hover::before {
             transform: translateX(100%);
         }
-        
+
         .tab-button.active {
             background: transparent;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 255, 255, 0.5);
@@ -556,28 +607,35 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
             border-color: rgba(255, 255, 255, 0.3);
         }
-        
+
         .tab-button.active::before {
             left: 0;
             transform: none;
             opacity: 1;
         }
-        
+
         .tab-content {
             width: 100%;
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
             animation: fadeIn 0.5s ease;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         /* Button Grid */
         .button-grid {
             display: grid;
@@ -585,7 +643,7 @@
             gap: 20px;
             width: 100%;
         }
-        
+
         .grid-button {
             display: flex;
             align-items: center;
@@ -602,16 +660,17 @@
             overflow: hidden;
             animation: subtle-glow 3s infinite alternate;
         }
-        
+
         @keyframes subtle-glow {
             0% {
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.2);
             }
+
             100% {
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 255, 0.4);
             }
         }
-        
+
         .grid-button::before {
             content: '';
             position: absolute;
@@ -619,32 +678,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(0, 255, 255, 0.15), 
-                rgba(157, 0, 255, 0.15), 
-                rgba(255, 0, 255, 0.15));
+            background: linear-gradient(45deg,
+                    rgba(0, 255, 255, 0.15),
+                    rgba(157, 0, 255, 0.15),
+                    rgba(255, 0, 255, 0.15));
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: -1;
         }
-        
+
         .grid-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 
-                        0 0 20px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 255, 255, 0.4);
             border-color: rgba(0, 255, 255, 0.5);
         }
-        
+
         .grid-button:hover::before {
             opacity: 1;
         }
-        
+
         .button-content {
             display: flex;
             flex-direction: column;
             flex: 1;
         }
-        
+
         .button-icon {
             width: 45px;
             height: 45px;
@@ -662,13 +721,13 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .grid-button:hover .button-icon {
             color: var(--neon-pink);
             transform: scale(1.1) rotate(5deg);
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
         }
-        
+
         .button-text {
             font-size: 1.2rem;
             font-weight: 600;
@@ -676,14 +735,14 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
             margin-bottom: 5px;
         }
-        
+
         .button-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 5px;
         }
-        
+
         .button-date {
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.7);
@@ -692,7 +751,7 @@
             border-radius: 10px;
             letter-spacing: 0.5px;
         }
-        
+
         .button-label {
             font-size: 0.75rem;
             font-weight: 600;
@@ -701,17 +760,17 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .label-lecture {
             background: linear-gradient(90deg, var(--neon-blue), #0066ff);
             color: white;
         }
-        
+
         .label-note {
             background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
             color: white;
         }
-        
+
         .button-logo {
             position: absolute;
             top: 10px;
@@ -722,13 +781,13 @@
             transition: all 0.3s ease;
             filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
         }
-        
+
         .grid-button:hover .button-logo {
             opacity: 1;
             transform: scale(1.1) rotate(10deg);
             filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.8));
         }
-        
+
         /* Search Bar */
         .search-container {
             width: 100%;
@@ -736,7 +795,7 @@
             margin: 0 auto 2rem;
             position: relative;
         }
-        
+
         .search-bar {
             width: 100%;
             padding: 1rem 1.5rem 1rem 3rem;
@@ -749,13 +808,13 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
-        
+
         .search-bar:focus {
             outline: none;
             border-color: var(--neon-blue);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.3);
         }
-        
+
         .search-icon {
             position: absolute;
             left: 1rem;
@@ -764,7 +823,7 @@
             color: var(--neon-blue);
             font-size: 1.2rem;
         }
-        
+
         /* Footer Styles */
         footer {
             background-color: rgba(0, 0, 0, 0.7);
@@ -774,7 +833,7 @@
             margin-top: 5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -783,19 +842,19 @@
             gap: 3rem;
             padding: 0 2rem;
         }
-        
+
         .footer-logo {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-        
+
         .footer-logo-img {
             display: flex;
             align-items: center;
             margin-bottom: 1.5rem;
         }
-        
+
         .footer-logo-img img {
             width: 50px;
             height: 50px;
@@ -804,7 +863,7 @@
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
-        
+
         .footer-logo-text {
             font-size: 1.8rem;
             font-weight: 700;
@@ -813,19 +872,19 @@
             background-clip: text;
             color: transparent;
         }
-        
+
         .footer-description {
             color: #aaa;
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
-        
+
         .footer-social {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
-        
+
         .social-icon {
             width: 40px;
             height: 40px;
@@ -839,13 +898,13 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .social-icon:hover {
             transform: translateY(-5px);
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
         }
-        
+
         .footer-links h3 {
             font-size: 1.3rem;
             color: white;
@@ -854,7 +913,7 @@
             display: inline-block;
             padding-bottom: 0.5rem;
         }
-        
+
         .footer-links h3::after {
             content: '';
             position: absolute;
@@ -865,16 +924,16 @@
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
             border-radius: 2px;
         }
-        
+
         .footer-links ul {
             list-style-type: none;
             padding: 0;
         }
-        
+
         .footer-links li {
             margin-bottom: 0.8rem;
         }
-        
+
         .footer-links a {
             color: #aaa;
             text-decoration: none;
@@ -883,7 +942,7 @@
             padding-left: 1.2rem;
             display: inline-block;
         }
-        
+
         .footer-links a::before {
             content: '›';
             position: absolute;
@@ -891,16 +950,16 @@
             color: var(--neon-blue);
             transition: all 0.3s ease;
         }
-        
+
         .footer-links a:hover {
             color: white;
             transform: translateX(5px);
         }
-        
+
         .footer-links a:hover::before {
             color: var(--neon-pink);
         }
-        
+
         .footer-contact h3 {
             font-size: 1.3rem;
             color: white;
@@ -909,7 +968,7 @@
             display: inline-block;
             padding-bottom: 0.5rem;
         }
-        
+
         .footer-contact h3::after {
             content: '';
             position: absolute;
@@ -920,25 +979,25 @@
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
             border-radius: 2px;
         }
-        
+
         .contact-item {
             display: flex;
             align-items: flex-start;
             margin-bottom: 1rem;
             color: #aaa;
         }
-        
+
         .contact-icon {
             margin-right: 1rem;
             color: var(--neon-blue);
             font-size: 1.2rem;
             min-width: 20px;
         }
-        
+
         .contact-text {
             line-height: 1.5;
         }
-        
+
         .footer-bottom {
             max-width: 1200px;
             margin: 0 auto;
@@ -947,32 +1006,32 @@
             margin-top: 3rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .copyright {
             color: #777;
             font-size: 0.9rem;
         }
-        
+
         .copyright a {
             color: var(--neon-blue);
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .copyright a:hover {
             color: var(--neon-pink);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 0.8rem 1rem;
             }
-            
+
             .menu-toggle {
                 display: flex;
             }
-            
+
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -987,254 +1046,255 @@
                 pointer-events: none;
                 transition: all 0.3s ease;
             }
-            
+
             .nav-links.active {
                 transform: translateY(0);
                 opacity: 1;
                 pointer-events: all;
             }
-            
+
             .nav-link {
                 width: 100%;
                 text-align: center;
                 padding: 1rem 0;
             }
-            
+
             .page-title {
                 font-size: 2rem;
             }
-            
+
             .button-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .tab-nav {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
+
             .tab-button {
                 width: 100%;
             }
         }
-        
+
         @media (max-width: 480px) {
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .page-subtitle {
                 font-size: 1rem;
             }
-            
+
             .grid-button {
                 padding: 15px;
             }
-            
+
             .button-icon {
                 width: 35px;
                 height: 35px;
                 font-size: 1.2rem;
             }
-            
+
             .button-text {
                 font-size: 1rem;
             }
         }
-        
+
         /* Responsive Styles */
         @media (max-width: 1200px) {
             .container {
                 max-width: 95%;
                 padding: 1.5rem;
             }
-            
+
             .button-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
         }
-        
+
         @media (max-width: 992px) {
             .page-title {
                 font-size: 2.4rem;
             }
-            
+
             .page-subtitle {
                 font-size: 1.1rem;
             }
-            
+
             .tab-nav {
                 gap: 1rem;
             }
-            
+
             .tab-button {
                 padding: 0.7rem 1.8rem;
                 font-size: 1rem;
             }
-            
+
             .button-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 gap: 15px;
             }
-            
+
             .grid-button {
                 padding: 15px;
             }
-            
+
             .button-icon {
                 width: 40px;
                 height: 40px;
             }
-            
+
             .button-text {
                 font-size: 1.1rem;
             }
         }
-        
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
-            
+
             .page-header {
                 padding: 1.8rem 1.5rem;
                 margin-bottom: 2rem;
             }
-            
+
             .page-title {
                 font-size: 2rem;
                 margin-bottom: 0.5rem;
             }
-            
+
             .page-subtitle {
                 font-size: 1rem;
             }
-            
+
             .tab-nav {
                 gap: 0.8rem;
             }
-            
+
             .tab-button {
                 padding: 0.6rem 1.5rem;
                 font-size: 0.95rem;
             }
-            
+
             .search-container {
                 width: 100%;
                 margin-bottom: 1.5rem;
             }
-            
+
             .search-input {
                 padding: 0.8rem 1rem 0.8rem 2.5rem;
                 font-size: 0.9rem;
             }
-            
+
             .search-icon {
                 left: 0.8rem;
                 font-size: 0.9rem;
             }
-            
+
             .button-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .grid-button {
                 padding: 15px;
             }
-            
+
             .button-meta {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
             }
-            
+
             .button-date {
                 font-size: 0.7rem;
             }
-            
+
             .button-label {
                 font-size: 0.7rem;
             }
-            
+
             /* Fix tab nav indicator for mobile */
             .tab-nav[data-active="lectures"]::after {
                 left: calc(25% - 30px);
                 width: 60px;
             }
-            
+
             .tab-nav[data-active="notes"]::after {
                 left: calc(75% - 30px);
                 width: 60px;
             }
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 0.8rem;
             }
-            
+
             .page-header {
                 padding: 1.5rem 1rem;
                 margin-bottom: 1.5rem;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .page-subtitle {
                 font-size: 0.9rem;
             }
-            
+
             .tab-nav {
                 gap: 0.5rem;
             }
-            
+
             .tab-button {
                 padding: 0.5rem 1.2rem;
                 font-size: 0.9rem;
             }
-            
+
             .search-input {
                 padding: 0.7rem 1rem 0.7rem 2.2rem;
                 font-size: 0.85rem;
             }
-            
+
             .grid-button {
                 padding: 12px;
             }
-            
+
             .button-icon {
                 width: 35px;
                 height: 35px;
                 margin-right: 10px;
                 font-size: 1.2rem;
             }
-            
+
             .button-text {
                 font-size: 1rem;
             }
-            
-            .button-date, .button-label {
+
+            .button-date,
+            .button-label {
                 font-size: 0.65rem;
             }
-            
+
             /* Adjust navbar for very small screens */
             .navbar-brand {
                 font-size: 1.2rem;
             }
-            
+
             .navbar-toggler {
                 padding: 0.3rem 0.5rem;
             }
-            
+
             /* Fix tab nav indicator for small mobile */
             .tab-nav[data-active="lectures"]::after {
                 left: calc(25% - 25px);
                 width: 50px;
             }
-            
+
             .tab-nav[data-active="notes"]::after {
                 left: calc(75% - 25px);
                 width: 50px;
@@ -1242,12 +1302,14 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689"
+                    alt="STUDY-WORLD Logo">
                 <span class="logo-text">STUDY-WORLD</span>
             </a>
             <div class="menu-toggle" id="mobile-menu">
@@ -1269,27 +1331,27 @@
             </ul>
         </div>
     </nav>
-    
+
     <div class="main-content">
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">10th ~ Science</h1>
             <p class="page-subtitle">All Lectures & Notes</p>
         </div>
-        
+
         <!-- Tab Navigation -->
         <div class="tab-container">
             <div class="tab-nav">
                 <button class="tab-button active" data-tab="lectures">Lectures</button>
                 <button class="tab-button" data-tab="notes">Notes</button>
             </div>
-            
+
             <!-- Search Bar -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-bar" placeholder="Search..." id="search-input">
             </div>
-            
+
             <!-- Lectures Tab Content -->
             <div class="tab-content active" id="lectures-tab">
                 <div class="button-grid">
@@ -1305,9 +1367,10 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
-                    
+
                     <!-- Lecture 2 -->
                     <a href="video-player4.html" class="grid-button" target="_blank">
                         <div class="button-icon">
@@ -1320,7 +1383,8 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Lecture 3 -->
@@ -1335,7 +1399,8 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Lecture 4 -->
@@ -1350,7 +1415,8 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Lecture 5 -->
@@ -1365,11 +1431,12 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
-  
-                      <!-- Lecture 6 -->
-                      <a href="video-player44.html" class="grid-button" target="_blank">
+
+                    <!-- Lecture 6 -->
+                    <a href="video-player44.html" class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1380,11 +1447,12 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                      <!-- Lecture 7 -->
-                      <a href="video-player45.html" class="grid-button" target="_blank">
+                    <!-- Lecture 7 -->
+                    <a href="video-player45.html" class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1395,11 +1463,12 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                      <!-- Lecture 8 -->
-                      <a href="video-player46.html" class="grid-button" target="_blank">
+                    <!-- Lecture 8 -->
+                    <a href="video-player46.html" class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1410,11 +1479,13 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                     <!-- Lecture 9 -->
-                     <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4365846%2F174601868499698296383%2Findex_3.m3u8" class="grid-button" target="_blank">
+                    <!-- Lecture 9 -->
+                    <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4365846%2F174601868499698296383%2Findex_3.m3u8"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1425,11 +1496,13 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                     <!-- Lecture 10 -->
-                     <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4367004%2F174610340159018296383%2Findex_3.m3u8" class="grid-button" target="_blank">
+                    <!-- Lecture 10 -->
+                    <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4367004%2F174610340159018296383%2Findex_3.m3u8"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1440,11 +1513,13 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                     <!-- Lecture 11-->
-                     <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4368177%2F174619014979628296383%2Findex_3.m3u8" class="grid-button" target="_blank">
+                    <!-- Lecture 11-->
+                    <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4368177%2F174619014979628296383%2Findex_3.m3u8"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1455,11 +1530,13 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
-                     <!-- Lecture 12 -->
-                     <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4370026%2F174627675448638296383%2F174627675448638296383_8296383.m3u8" class="grid-button" target="_blank">
+                    <!-- Lecture 12 -->
+                    <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4370026%2F174627675448638296383%2F174627675448638296383_8296383.m3u8"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
@@ -1470,16 +1547,69 @@
                                 <span class="button-label label-lecture">Lecture</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
+
+                     <!-- Lecture 13 -->
+                     <a href="play.html?lessonurl=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4374886/174662262789208296383/index_3.m3u8"
+                     class="grid-button" target="_blank">
+                     <div class="button-icon">
+                         <i class="fas fa-play-circle"></i>
+                     </div>
+                     <div class="button-content">
+                         <div class="button-text">Light ~ L5</div>
+                         <div class="button-meta">
+                             <span class="button-date"></span>
+                             <span class="button-label label-lecture">Lecture</span>
+                         </div>
+                     </div>
+                     <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                         class="button-logo">
+                 </a>
+
+                  <!-- Lecture 14 -->
+                  <a href="play.html?lessonurl=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4376022/174670906343678296383/index_3.m3u8"
+                  class="grid-button" target="_blank">
+                  <div class="button-icon">
+                      <i class="fas fa-play-circle"></i>
+                  </div>
+                  <div class="button-content">
+                      <div class="button-text">Light ~ L6</div>
+                      <div class="button-meta">
+                          <span class="button-date"></span>
+                          <span class="button-label label-lecture">Lecture</span>
+                      </div>
+                  </div>
+                  <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                      class="button-logo">
+              </a>
+
+               <!-- Lecture 15 -->
+               <a href="play.html?lessonurl=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4377192/174679471966318296383/index_3.m3u8"
+               class="grid-button" target="_blank">
+               <div class="button-icon">
+                   <i class="fas fa-play-circle"></i>
+               </div>
+               <div class="button-content">
+                   <div class="button-text">Light ~ L7</div>
+                   <div class="button-meta">
+                       <span class="button-date"></span>
+                       <span class="button-label label-lecture">Lecture</span>
+                   </div>
+               </div>
+               <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                   class="button-logo">
+           </a>
                 </div>
             </div>
-            
+
             <!-- Notes Tab Content -->
             <div class="tab-content" id="notes-tab">
                 <div class="button-grid">
                     <!-- Note 1 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/545509967460020400.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/545509967460020400.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1490,11 +1620,13 @@
                                 <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
-                    
+
                     <!-- Note 2 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/92623582258554050.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/92623582258554050.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1505,11 +1637,13 @@
                                 <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 3 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/467570420184705540.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/467570420184705540.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1520,11 +1654,13 @@
                                 <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 4 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/508994911186986560.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/508994911186986560.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1535,11 +1671,13 @@
                                 <span class="button-label label-note">NOTES</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 5 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/812608998691140200.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/812608998691140200.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1550,11 +1688,13 @@
                                 <span class="button-label label-note">NOTES</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 6 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/692200381751812900.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/692200381751812900.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1565,11 +1705,13 @@
                                 <span class="button-label label-note">NOTES</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 7 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/635590807317661200.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/635590807317661200.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1580,11 +1722,13 @@
                                 <span class="button-label label-note">NOTES</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 8 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/214143229364161280.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/214143229364161280.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1595,12 +1739,14 @@
                                 <span class="button-label label-note">NOTES</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
 
                     <!-- Note 9 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/151758065059113380.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/151758065059113380.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1611,11 +1757,13 @@
                                 <span class="button-label label-note">ACP</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 10 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/186368098857000600.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/186368098857000600.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1623,14 +1771,16 @@
                             <div class="button-text">Light ~ 1</div>
                             <div class="button-meta">
                                 <span class="button-date">Science</span>
-                                <span class="button-label label-note">ACP</span>
+                                <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 11 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/893692154902404400.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/893692154902404400.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1638,14 +1788,16 @@
                             <div class="button-text">Light ~ 2</div>
                             <div class="button-meta">
                                 <span class="button-date">Science</span>
-                                <span class="button-label label-note">ACP</span>
+                                <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
 
                     <!-- Note 12 -->
-                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/201395451636924200.pdf" class="grid-button" target="_blank">
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/201395451636924200.pdf"
+                        class="grid-button" target="_blank">
                         <div class="button-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
@@ -1653,25 +1805,114 @@
                             <div class="button-text">Light ~ 3</div>
                             <div class="button-meta">
                                 <span class="button-date">Science</span>
-                                <span class="button-label label-note">ACP</span>
+                                <span class="button-label label-note">Notes</span>
                             </div>
                         </div>
-                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
                     </a>
+
+                    <!-- Note 13 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/568390841661464500.pdf"
+                        class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Light ~ 4</div>
+                            <div class="button-meta">
+                                <span class="button-date">Science</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
+                    </a>
+
+                    <!-- Note 14 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/855806543563515300.pdf"
+                        class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Light ~ 5</div>
+                            <div class="button-meta">
+                                <span class="button-date">Science</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
+                    </a>
+
+                    <!-- Note 15 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/355378778094591700.pdf"
+                        class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Light ~ 6</div>
+                            <div class="button-meta">
+                                <span class="button-date">Science</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
+                    </a>
+
+                    <!-- Note 16-->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/303485460972520450.pdf"
+                        class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Light ~ 7</div>
+                            <div class="button-meta">
+                                <span class="button-date">Science</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                            class="button-logo">
+                        </a>
+
+                        <!-- Note 17-->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/553368258434162370.pdf"
+                    class="grid-button" target="_blank">
+                    <div class="button-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="button-content">
+                        <div class="button-text">Light ~ ACP</div>
+                        <div class="button-meta">
+                            <span class="button-date">Science</span>
+                            <span class="button-label label-note">ACP</span>
+                        </div>
+                    </div>
+                    <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo"
+                        class="button-logo">
+                    </a>
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
                 <div class="footer-logo-img">
-                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689"
+                        alt="STUDY-WORLD Logo">
                     <span class="footer-logo-text">STUDY-WORLD</span>
                 </div>
-                <p class="footer-description">Your gateway to academic excellence. We provide free educational resources for students of Class 10th and 11th.</p>
+                <p class="footer-description">Your gateway to academic excellence. We provide free educational resources
+                    for students of Class 10th and 11th.</p>
                 <div class="footer-social">
                     <a href="https://t.me/CENSORED_POLITICSS" class="social-icon" target="_blank">
                         <i class="fab fa-telegram"></i>
@@ -1684,7 +1925,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="footer-links">
                 <h3>Quick Links</h3>
                 <ul>
@@ -1694,7 +1935,7 @@
                     <li><a href="next-toppers.html">Next Toppers</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-links">
                 <h3>Classes</h3>
                 <ul>
@@ -1702,7 +1943,7 @@
                     <li><a href="class11.html">Class 11</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-contact">
                 <h3>Contact Us</h3>
                 <div class="contact-item">
@@ -1723,51 +1964,52 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
-            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students.</p>
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart"
+                    style="color: var(--neon-pink);"></i> for students.</p>
         </div>
     </footer>
-    
+
     <!-- JavaScript for tab switching and mobile menu -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Mobile menu toggle
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.getElementById('nav-links');
-            
-            mobileMenu.addEventListener('click', function() {
+
+            mobileMenu.addEventListener('click', function () {
                 navLinks.classList.toggle('active');
-                
+
                 // Toggle menu icon
                 const spans = mobileMenu.querySelectorAll('span');
                 spans[0].classList.toggle('rotate-45');
                 spans[1].classList.toggle('opacity-0');
                 spans[2].classList.toggle('rotate-neg-45');
             });
-            
+
             // Tab switching with swipe indicator
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
             const tabNav = document.querySelector('.tab-nav');
-            
+
             // Set initial active state
             tabNav.setAttribute('data-active', 'lectures');
-            
+
             tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
-                    
+
                     // Add active class to clicked button and corresponding content
                     this.classList.add('active');
                     const tabId = this.getAttribute('data-tab');
                     document.getElementById(`${tabId}-tab`).classList.add('active');
-                    
+
                     // Update the swipe indicator
                     tabNav.setAttribute('data-active', tabId);
-                    
+
                     // Add a subtle animation effect
                     tabNav.style.animation = 'none';
                     setTimeout(() => {
@@ -1775,16 +2017,16 @@
                     }, 10);
                 });
             });
-            
+
             // Search functionality
             const searchInput = document.getElementById('search-input');
-            
-            searchInput.addEventListener('input', function() {
+
+            searchInput.addEventListener('input', function () {
                 const searchTerm = this.value.toLowerCase();
                 const activeTabId = document.querySelector('.tab-button.active').getAttribute('data-tab');
                 const activeTabContent = document.getElementById(`${activeTabId}-tab`);
                 const activeTabButtons = activeTabContent.querySelectorAll('.grid-button');
-                
+
                 // Only search within the active tab's buttons
                 activeTabButtons.forEach(button => {
                     const buttonText = button.querySelector('.button-text').textContent.toLowerCase();
@@ -1795,10 +2037,10 @@
                     }
                 });
             });
-            
+
             // Clear search when switching tabs
             tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     searchInput.value = '';
                     // Show all buttons when clearing search
                     document.querySelectorAll('.grid-button').forEach(btn => {
@@ -1827,29 +2069,29 @@
 
     <script>
         // Notification popup functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const notificationBtn = document.querySelector('.notification-btn');
             const notificationPopup = document.getElementById('notification-popup');
             const notificationClose = document.getElementById('notification-close');
             const notificationBadge = document.querySelector('.notification-badge');
-            
+
             // Toggle notification popup
-            notificationBtn.addEventListener('click', function() {
+            notificationBtn.addEventListener('click', function () {
                 notificationPopup.classList.toggle('show');
-                
+
                 // Remove notification badge when clicked
                 if (notificationBadge) {
                     notificationBadge.style.display = 'none';
                 }
             });
-            
+
             // Close notification popup
-            notificationClose.addEventListener('click', function() {
+            notificationClose.addEventListener('click', function () {
                 notificationPopup.classList.remove('show');
             });
-            
+
             // Close popup when clicking outside
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 if (!notificationPopup.contains(event.target) && !notificationBtn.contains(event.target)) {
                     notificationPopup.classList.remove('show');
                 }
@@ -1857,4 +2099,5 @@
         });
     </script>
 </body>
+
 </html>
