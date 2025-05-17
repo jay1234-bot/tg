@@ -2193,6 +2193,195 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo" />
+                <div class="loader-logo-text">STUDY-WORLD</div>
+            </div>
+            <div class="loader-title">PREPARING RESOURCES...</div>
+            <div class="loader-animation">
+                <div class="loader-bar-bg">
+                    <div class="loader-bar" id="loader-bar"></div>
+                </div>
+                <div class="loader-percentage" id="loader-percentage">0%</div>
+            </div>
+            <div class="loader-text" id="loader-text">Loading...</div>
+        </div>
+    </div>
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, #0f0026 0%, #1a0033 100%);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+        }
+        .loader-container {
+            text-align: center;
+            color: #fff;
+            width: 90vw;
+            max-width: 400px;
+            padding: 2.5rem 1.5rem;
+            border-radius: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            box-shadow: 0 8px 40px 0 rgba(0,0,0,0.4), 0 0 40px 10px #9d00ff33;
+            position: relative;
+        }
+        .loader-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        .loader-logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px #00ffff99, 0 0 40px #9d00ff44;
+            margin-bottom: 0.5rem;
+            background: #fff;
+            object-fit: cover;
+            animation: loader-pulse 2s infinite;
+        }
+        .loader-logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #9d00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes loader-pulse {
+            0% { box-shadow: 0 0 20px #00ffff99, 0 0 40px #9d00ff44; }
+            50% { box-shadow: 0 0 40px #00ffffcc, 0 0 60px #ff00ff66; }
+            100% { box-shadow: 0 0 20px #00ffff99, 0 0 40px #9d00ff44; }
+        }
+        .loader-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #9d00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 2s linear infinite;
+        }
+        .loader-animation {
+            margin-bottom: 1.2rem;
+        }
+        .loader-bar-bg {
+            width: 100%;
+            height: 18px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 0 10px #00ffff44;
+        }
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #9d00ff);
+            border-radius: 10px;
+            transition: width 0.3s cubic-bezier(.4,2,.6,1);
+            box-shadow: 0 0 20px #00ffff99;
+        }
+        .loader-percentage {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff99;
+        }
+        .loader-text {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            color: #ff00ff;
+            letter-spacing: 1px;
+            min-height: 1.5em;
+            animation: flicker 2s infinite alternate;
+        }
+        @keyframes shine {
+            to { background-position: 300% center; }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .loader-container {
+                max-width: 95vw;
+                padding: 1.5rem 0.5rem;
+            }
+            .loader-logo img {
+                width: 48px;
+                height: 48px;
+            }
+            .loader-logo-text {
+                font-size: 1.1rem;
+            }
+            .loader-title {
+                font-size: 1rem;
+            }
+            .loader-bar-bg {
+                height: 12px;
+            }
+            .loader-percentage, .loader-text {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+    <script>
+        // Loader progress simulation
+        document.addEventListener('DOMContentLoaded', function() {
+            const loaderBar = document.getElementById('loader-bar');
+            const loaderPercentage = document.getElementById('loader-percentage');
+            const loaderText = document.getElementById('loader-text');
+            const preloader = document.getElementById('preloader');
+            const loadingMessages = [
+                'Loading assets...',
+                'Preparing resources...',
+                'Optimizing experience...',
+                'Almost ready...',
+                'Finalizing...'
+            ];
+            let progress = 0;
+            let msgIndex = 0;
+            function updateLoader() {
+                progress += Math.random() * 8 + 2;
+                if (progress > 100) progress = 100;
+                loaderBar.style.width = progress + '%';
+                loaderPercentage.textContent = Math.floor(progress) + '%';
+                if (progress > (msgIndex + 1) * 20 && msgIndex < loadingMessages.length - 1) {
+                    msgIndex++;
+                    loaderText.textContent = loadingMessages[msgIndex];
+                }
+                if (progress < 100) {
+                    setTimeout(updateLoader, 300 + Math.random() * 200);
+                } else {
+                    loaderText.textContent = 'Ready!';
+                    setTimeout(function() {
+                        preloader.style.opacity = 0;
+                        setTimeout(function() {
+                            preloader.style.display = 'none';
+                        }, 600);
+                    }, 600);
+                }
+            }
+            updateLoader();
+        });
+    </script>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -2359,7 +2548,7 @@
                                     <span>Advanced Problem Solving</span>
                                 </div>
                             </div>
-                            <a href="#" class="class-card-button">
+                            <a href="" class="class-card-button">
                                 <i class="fas fa-book-open"></i> Explore
                             </a>
                         </div>
