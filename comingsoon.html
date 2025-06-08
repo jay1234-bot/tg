@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coming Soon - Study World × Physics Wallah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #2a0845, #000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 30px rgba(175, 0, 255, 0.3);
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #e2b3ff;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+
+    .timer {
+      display: flex;
+      justify-content: space-around;
+      font-size: 2rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+    }
+
+    .timer div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timer span {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .timer { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚧 Coming Soon 🚀</h1>
+    <p>The Study World × Physics Wallah page is under construction. Expected to be live by <strong>5:00 PM Tomorrow</strong>.</p>
+
+    <div class="timer" id="countdown">
+      <div><div id="days">--</div><span>Days</span></div>
+      <div><div id="hours">--</div><span>Hours</span></div>
+      <div><div id="minutes">--</div><span>Minutes</span></div>
+      <div><div id="seconds">--</div><span>Seconds</span></div>
+    </div>
+
+    <p class="footer-text">Thanks for your patience! We're building something amazing. ⚡</p>
+  </div>
+
+  <script>
+    function countdownTimer() {
+      const countdown = document.getElementById("countdown");
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(now.getDate() + 1);
+      tomorrow.setHours(17, 0, 0, 0); // 5 PM Tomorrow
+
+      const interval = setInterval(() => {
+        const current = new Date().getTime();
+        const distance = tomorrow.getTime() - current;
+
+        if (distance < 0) {
+          clearInterval(interval);
+          countdown.innerHTML = "<div><div>00</div><span>Time's up!</span></div>";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+      }, 1000);
+    }
+
+    countdownTimer();
+  </script>
+</body>
+</html>

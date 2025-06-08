@@ -6,6 +6,7 @@
     <title>STUDY-WORLD</title>
     <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
     <style>
+        /* Enhanced Root Variables */
         :root {
             --neon-pink: #ff00ff;
             --neon-blue: #00ffff;
@@ -19,6 +20,12 @@
             --darker-bg: #050505;
             --glass-bg: rgba(10, 10, 10, 0.7);
             --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            --gradient-2: linear-gradient(45deg, var(--neon-pink), var(--neon-orange));
+            --gradient-3: linear-gradient(45deg, var(--neon-teal), var(--neon-green));
+            --shadow-neon: 0 0 20px rgba(0, 255, 255, 0.5);
+            --shadow-glow: 0 0 30px rgba(157, 0, 255, 0.3);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -36,7 +43,9 @@
             flex-direction: column;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%),
+                linear-gradient(45deg, rgba(157, 0, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
             position: relative;
             overflow-x: hidden;
         }
@@ -68,48 +77,32 @@
         
         .particle {
             position: absolute;
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: transparent;
             border-radius: 50%;
-            box-shadow: 0 0 10px 2px var(--neon-blue);
-            animation: float 15s infinite linear;
-            opacity: 0.3;
+            box-shadow: 0 0 15px 3px var(--neon-blue);
+            animation: floatEnhanced 20s infinite linear;
+            opacity: 0.4;
+            filter: blur(1px);
         }
         
-        .particle:nth-child(2n) {
-            box-shadow: 0 0 10px 2px var(--neon-pink);
-            animation-duration: 20s;
-        }
-        
-        .particle:nth-child(3n) {
-            box-shadow: 0 0 10px 2px var(--neon-purple);
-            animation-duration: 25s;
-        }
-        
-        .particle:nth-child(4n) {
-            box-shadow: 0 0 10px 2px var(--neon-green);
-            animation-duration: 30s;
-        }
-        
-        .particle:nth-child(5n) {
-            box-shadow: 0 0 10px 2px var(--neon-teal);
-            animation-duration: 35s;
-        }
-        
-        @keyframes float {
+        @keyframes floatEnhanced {
             0% {
-                transform: translateY(0) translateX(0);
+                transform: translateY(0) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             10% {
-                opacity: 0.3;
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-50vh) translateX(50vw) rotate(180deg);
             }
             90% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
             100% {
-                transform: translateY(-100vh) translateX(100vw);
+                transform: translateY(-100vh) translateX(100vw) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -117,14 +110,23 @@
         /* Navbar Styles */
         .navbar {
             background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 
                 0 5px 15px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(157, 0, 255, 0.2);
+                0 0 30px rgba(157, 0, 255, 0.2),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: var(--transition-smooth);
+        }
+        
+        .navbar:hover {
+            box-shadow: 
+                0 5px 20px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(157, 0, 255, 0.3),
+                inset 0 0 30px rgba(0, 255, 255, 0.15);
         }
         
         .nav-container {
@@ -152,19 +154,25 @@
             box-shadow: 
                 0 0 10px var(--neon-blue),
                 0 0 20px rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            transition: var(--transition-smooth);
+            animation: logoPulse 3s infinite;
         }
         
-        @keyframes pulse {
+        @keyframes logoPulse {
             0% {
                 box-shadow: 0 0 10px var(--neon-blue);
+                transform: scale(1);
             }
             50% {
-                box-shadow: 0 0 20px var(--neon-blue), 0 0 30px rgba(0, 255, 255, 0.3);
+                box-shadow: 
+                    0 0 20px var(--neon-blue),
+                    0 0 40px rgba(0, 255, 255, 0.3),
+                    0 0 60px rgba(157, 0, 255, 0.2);
+                transform: scale(1.05);
             }
             100% {
                 box-shadow: 0 0 10px var(--neon-blue);
+                transform: scale(1);
             }
         }
         
@@ -475,8 +483,34 @@
             background-clip: text;
             color: transparent;
             background-size: 400% 100%;
-            animation: textAnimate 8s ease-in-out infinite alternate;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            animation: welcomeTextAnimation 8s infinite;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.1),
+                0 0 20px rgba(157, 0, 255, 0.2),
+                0 0 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        @keyframes welcomeTextAnimation {
+            0% {
+                transform: scale(1) translateY(0);
+                filter: hue-rotate(0deg);
+            }
+            25% {
+                transform: scale(1.03) translateY(-5px);
+                filter: hue-rotate(90deg);
+            }
+            50% {
+                transform: scale(1.05) translateY(0);
+                filter: hue-rotate(180deg);
+            }
+            75% {
+                transform: scale(1.03) translateY(5px);
+                filter: hue-rotate(270deg);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                filter: hue-rotate(360deg);
+            }
         }
         
         .welcome-text::before, .welcome-text::after {
@@ -602,7 +636,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             border: none;
             cursor: pointer;
             display: inline-flex;
@@ -630,23 +664,28 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--neon-teal), var(--neon-green));
-            z-index: -1;
-            transition: transform 0.5s;
-            transform: scaleX(0);
-            transform-origin: right;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
         }
         
         .cta-button:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(0, 255, 255, 0.3),
+                0 0 60px rgba(157, 0, 255, 0.2);
         }
         
         .cta-button i {
@@ -782,7 +821,9 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: var(--transition-smooth);
+            transform-style: preserve-3d;
+            perspective: 1000px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             display: flex;
@@ -802,10 +843,11 @@
         }
         
         .about-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
             box-shadow: 
                 0 15px 30px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(0, 255, 255, 0.2);
+                0 0 30px rgba(0, 255, 255, 0.2),
+                0 0 60px rgba(157, 0, 255, 0.1);
         }
         
         .about-card:hover::before {
@@ -1026,14 +1068,30 @@
             justify-content: center;
             color: white;
             font-size: 1.2rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: var(--transition-smooth);
+            z-index: -1;
         }
         
         .social-icon:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1.1);
+            color: white;
+        }
+        
+        .social-icon:hover::before {
+            left: 0;
         }
         
         .footer-links h3 {
@@ -1068,7 +1126,7 @@
         .footer-links a {
             color: #aaa;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             padding-left: 1.2rem;
             display: inline-block;
@@ -1089,6 +1147,21 @@
         
         .footer-links a:hover::before {
             color: var(--neon-pink);
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: var(--transition-smooth);
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
         }
         
         .footer-contact h3 {
@@ -1244,17 +1317,17 @@
                 backdrop-filter: blur(10px);
                 padding: 1rem 0;
                 gap: 0;
-                transform: translateY(-100%);
+                transform: translateY(-100%) scale(0.95);
                 opacity: 0;
                 pointer-events: none;
-                transition: all 0.3s ease;
+                transition: var(--transition-smooth);
                 z-index: 1000;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
                 border-bottom: 1px solid var(--glass-border);
             }
             
             .nav-links.active {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 opacity: 1;
                 pointer-events: all;
             }
@@ -1855,9 +1928,12 @@
         .form-field input:focus,
         .form-field select:focus,
         .form-field textarea:focus {
-            outline: none;
+            transform: translateY(-2px);
             border-color: var(--neon-blue);
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
         }
         
         .form-submit {
@@ -1983,7 +2059,7 @@
             position: relative;
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
+            transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
         }
@@ -2005,10 +2081,11 @@
         }
         
         .class-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
             box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(157, 0, 255, 0.2);
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(0, 255, 255, 0.2),
+                0 0 60px rgba(157, 0, 255, 0.1);
         }
         
         .class-card:hover::after {
@@ -2139,7 +2216,7 @@
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.1);
             width: fit-content;
             align-self: flex-end;
@@ -2148,7 +2225,7 @@
         .class-card-button:hover {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         
@@ -2403,7 +2480,7 @@
                 <li>
                     <button class="notification-btn">
                         <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
+                        <span class="notification-badge">1</span>
                     </button>
                 </li>
             </ul>
@@ -2520,7 +2597,7 @@
                                     <span>Practice Questions</span>
                                 </div>
                             </div>
-                            <a href="next-toppers.html" class="class-card-button">
+                            <a href="nexttop.html" class="class-card-button">
                                 <i class="fas fa-book-open"></i> Explore
                             </a>
                         </div>
@@ -2548,7 +2625,7 @@
                                     <span>Advanced Problem Solving</span>
                                 </div>
                             </div>
-                            <a href="" class="class-card-button">
+                            <a href="comingsoon.html" class="class-card-button">
                                 <i class="fas fa-book-open"></i> Explore
                             </a>
                         </div>
@@ -2857,7 +2934,7 @@
         </div>
         <div class="notification-contact">
             <i class="fab fa-telegram"></i>
-            <a href="https://t.me/CENSORED_POLITICSS" target="_blank">Contact me on Telegram @CENSORED_POLITICSS</a>
+            <a href="https://t.me/CENSORED_POLITICSS" target="_blank">Click Here</a>
         </div>
     </div>
 
@@ -2894,3 +2971,4 @@
     </script>
 </body>
 </html>
+

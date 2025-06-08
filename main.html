@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDY-WORLD - Your Learning Journey Begins Here</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff00;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6600;
+            --neon-red: #ff0066;
+            --neon-teal: #00ffcc;
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            --gradient-2: linear-gradient(45deg, var(--neon-pink), var(--neon-orange));
+            --gradient-3: linear-gradient(45deg, var(--neon-teal), var(--neon-green));
+            --shadow-neon: 0 0 20px rgba(0, 255, 255, 0.5);
+            --shadow-glow: 0 0 30px rgba(157, 0, 255, 0.3);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%),
+                linear-gradient(45deg, rgba(157, 0, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(157, 0, 255, 0.03) 10px,
+                rgba(157, 0, 255, 0.03) 20px
+            );
+            animation: bgMove 20s linear infinite;
+        }
+
+        @keyframes bgMove {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 
+                0 0 20px var(--neon-blue),
+                0 0 40px rgba(0, 255, 255, 0.3),
+                0 0 60px rgba(157, 0, 255, 0.2);
+            animation: logoPulse 3s infinite;
+            background: white;
+            padding: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, 
+                var(--neon-blue), 
+                var(--neon-pink), 
+                var(--neon-purple), 
+                var(--neon-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% auto;
+            animation: shine 3s linear infinite;
+            text-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+        }
+
+        /* Welcome Text */
+        .welcome-text {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            max-width: 800px;
+            line-height: 1.6;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Buttons Container */
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        /* Button Styles */
+        .feature-button {
+            position: relative;
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .feature-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.1),
+                rgba(157, 0, 255, 0.1));
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .feature-button::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                var(--neon-purple), 
+                var(--neon-pink), 
+                var(--neon-teal));
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .feature-button:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(0, 255, 255, 0.2),
+                0 0 60px rgba(157, 0, 255, 0.1);
+        }
+
+        .feature-button:hover::before {
+            opacity: 1;
+        }
+
+        .feature-button:hover::after {
+            opacity: 0.5;
+        }
+
+        .button-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-button:hover .button-icon {
+            transform: scale(1.1);
+            color: var(--neon-pink);
+        }
+
+        .button-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .button-description {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards;
+        }
+
+        .footer-text {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .footer-text a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-text a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logoPulse {
+            0% {
+                box-shadow: 0 0 20px var(--neon-blue);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px var(--neon-blue),
+                    0 0 50px rgba(0, 255, 255, 0.3),
+                    0 0 70px rgba(157, 0, 255, 0.2);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--neon-blue);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 300% center;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.5rem;
+            }
+
+            .welcome-text {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .buttons-container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .feature-button {
+                padding: 1.5rem;
+            }
+
+            .button-icon {
+                font-size: 2.5rem;
+            }
+
+            .button-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .logo-img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .welcome-text {
+                font-size: 1.2rem;
+            }
+
+            .button-icon {
+                font-size: 2rem;
+            }
+
+            .button-title {
+                font-size: 1.2rem;
+            }
+
+            .button-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top-color: var(--neon-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner::before,
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            border: 4px solid transparent;
+            border-radius: 50%;
+        }
+
+        .loading-spinner::before {
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-top-color: var(--neon-pink);
+            animation: spin 2s linear infinite;
+        }
+
+        .loading-spinner::after {
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-top-color: var(--neon-purple);
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-container">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo" class="logo-img">
+            </div>
+            <h1 class="logo-text">STUDY-WORLD</h1>
+        </div>
+
+        <!-- Welcome Text -->
+        <p class="welcome-text">
+            Welcome to your ultimate learning destination! Explore our curated collection of educational resources, 
+            join our vibrant community, and embark on your journey to academic excellence.
+        </p>
+
+        <!-- Buttons Container -->
+        <div class="buttons-container">
+            <!-- Explore Batches Button -->
+            <a href="index.html" class="feature-button">
+                <i class="fas fa-graduation-cap button-icon"></i>
+                <h2 class="button-title">Explore Batches</h2>
+                <p class="button-description">
+                    Discover our comprehensive collection of video lectures from top educators like Next Toppers and Physics Wallah.
+                </p>
+            </a>
+
+            <!-- Explore Books Button -->
+            <a href="wait.html" class="feature-button">
+                <i class="fas fa-book-open button-icon"></i>
+                <h2 class="button-title">Explore Books</h2>
+                <p class="button-description">
+                    Access our curated collection of study materials and books to enhance your learning experience.
+                </p>
+            </a>
+
+            <!-- Join Telegram Button -->
+            <a href="https://t.me/study_world_official" target="_blank" class="feature-button">
+                <i class="fab fa-telegram button-icon"></i>
+                <h2 class="button-title">Join Telegram</h2>
+                <p class="button-description">
+                    Connect with our community on Telegram for instant updates, discussions, and support.
+                </p>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                © 2024 STUDY-WORLD. All rights reserved. | 
+                <a href="privacy-policy.html">Privacy Policy</a> | 
+                <a href="terms-conditions.html">Terms & Conditions</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Loading Animation
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Add hover effect to buttons
+        document.querySelectorAll('.feature-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotateX(5deg) rotateY(5deg)';
+            });
+
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+            });
+        });
+
+        // Add parallax effect to background
+        document.addEventListener('mousemove', function(e) {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelector('.animated-bg').style.transform = 
+                `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body>
+</html> 
