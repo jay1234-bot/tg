@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 11 - STUDY-WORLD</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff00;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6600;
+            --neon-red: #ff0066;
+            --neon-teal: #00ffcc;
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(157, 0, 255, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 
+                0 0 10px var(--neon-blue),
+                0 0 20px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--neon-blue), 0 0 30px rgba(0, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+        }
+        
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% auto;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 300% center;
+            }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .nav-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+        
+        .active::after {
+            width: 100%;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: text-flicker 5s linear infinite;
+        }
+        
+        @keyframes text-flicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            92% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            93% {
+                opacity: 0.8;
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            94% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            97% {
+                opacity: 0.9;
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+            98% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+        }
+        
+        .cards-container {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .resource-card {
+            width: 320px;
+            height: 420px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                var(--neon-purple), 
+                var(--neon-pink), 
+                var(--neon-teal));
+            background-size: 400% 400%;
+            z-index: -1;
+            border-radius: 22px;
+            animation: gradient-border 8s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        @keyframes gradient-border {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(157, 0, 255, 0.3);
+        }
+        
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+        
+        .resource-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .resource-card:hover .resource-icon {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        .resource-icon i {
+            font-size: 3rem;
+            color: white;
+            animation: icon-pulse 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes icon-pulse {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+                transform: scale(1.1);
+            }
+        }
+        
+        .resource-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover .resource-title {
+            letter-spacing: 2px;
+        }
+        
+        .resource-subtitle {
+            color: #ccc;
+            text-align: center;
+            padding: 0 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .resource-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-teal));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            animation: badge-pulse 2s infinite alternate;
+        }
+        
+        @keyframes badge-pulse {
+            0% {
+                box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+            }
+        }
+        
+        .resource-button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .resource-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .resource-button i {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-button:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .footer-logo-img {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-img img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-description {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+        }
+        
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 1.2rem;
+            display: inline-block;
+        }
+        
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-links a:hover::before {
+            color: var(--neon-pink);
+        }
+        
+        .footer-contact h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            color: #aaa;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            min-width: 20px;
+        }
+        
+        .contact-text {
+            line-height: 1.5;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .copyright a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .copyright a:hover {
+            color: var(--neon-pink);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0.8rem 1rem;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.9);
+                padding: 1rem 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 0;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                <span class="logo-text">STUDY-WORLD</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                <li><a href="index.html#classes" class="nav-link">Classes</a></li>
+                <li><a href="next-toppers.html" class="nav-link">Next Toppers</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <h1 class="page-title">Class 11 Resources</h1>
+        
+        <div class="cards-container">
+            <a href="PCMB.html" class="resource-card">
+                <div class="resource-badge">Free</div>
+                <div class="resource-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <h2 class="resource-title">Prarambh ~ PCMB</h2>
+                <p class="resource-subtitle">Advanced physics concepts and problem-solving techniques for Class 11 students.</p>
+                <button class="resource-button">
+                    <i class="fas fa-arrow-right"></i> Explore
+                </button>
+            </a>
+            
+            <a href="commerce.html" class="resource-card">
+                <div class="resource-badge">Free</div>
+                <div class="resource-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h2 class="resource-title">Prarambh ~ Commerce</h2>
+                <p class="resource-subtitle">Best Lectures and notes for lass 11 commerce.</p>
+                <button class="resource-button">
+                    <i class="fas fa-arrow-right"></i> Explore
+                </button>
+            </a>
+
+            <!-- Humanities Card -->
+            <a href="humanities.html" class="resource-card">
+                <div class="resource-badge discount">New</div>
+                <div class="resource-icon">
+                    <img src="https://ik.imagekit.io/krishan1234/humanity.jpg?updatedAt=1745756053216" alt="Humanities Logo" style="width:48px;height:48px;border-radius:50%;background:#eee;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                </div>
+                <h2 class="resource-title">Prarambh ~ Humanities</h2>
+                <p class="resource-subtitle">Best Lectures and notes for Class 11 Humanities students.</p>
+                <button class="resource-button" style="background:#4d7cff;color:#fff;font-weight:600;">
+                    <i class="fas fa-arrow-right"></i> Explore
+                </button>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-img">
+                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                    <span class="footer-logo-text">STUDY-WORLD</span>
+                </div>
+                <p class="footer-description">Your gateway to academic excellence. We provide free educational resources for students of Class 10th and 11th.</p>
+                <div class="footer-social">
+                    <a href="https://t.me/CENSORED_POLITICSS" class="social-icon" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+              
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#classes">Classes</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Classes</h3>
+                <ul>
+                    <li><a href="class10.html">Class 10</a></li>
+                    <li><a href="class11.html">Class 11</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        info@studyworld.com
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-text">
+                        @CENSORED_POLITICSS
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a></p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Toggle menu icon
+                const spans = mobileMenu.querySelectorAll('span');
+                spans[0].classList.toggle('rotate-45');
+                spans[1].classList.toggle('opacity-0');
+                spans[2].classList.toggle('rotate-neg-45');
+            });
+        });
+    </script>
+</body>
+</html>

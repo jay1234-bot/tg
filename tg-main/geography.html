@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PCMB ~ Geography| STUDY-WORLD</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff00;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6600;
+            --neon-red: #ff0066;
+            --neon-teal: #00ffcc;
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary-blue: #0066ff;
+            --light-blue: #4d94ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(157, 0, 255, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 
+                0 0 10px var(--neon-blue),
+                0 0 20px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--neon-blue), 0 0 30px rgba(0, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+        }
+        
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% auto;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 300% center;
+            }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .nav-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+        
+        .active::after {
+            width: 100%;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        /* Notification Button Styles */
+        .notification-btn {
+            position: relative;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+        }
+        
+        /* Notification Popup Styles */
+        .notification-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(157, 0, 255, 0.3);
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .notification-popup.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .notification-popup::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-teal));
+            z-index: -1;
+            border-radius: 17px;
+            opacity: 0.5;
+            animation: borderRotate 4s linear infinite;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .notification-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .notification-close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-close:hover {
+            color: var(--neon-pink);
+            transform: scale(1.1);
+        }
+        
+        .notification-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .notification-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .notification-contact i {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+        }
+        
+        .notification-contact a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-contact a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .notification-btn:hover {
+            color: var(--neon-blue);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-red));
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            animation: pulse-badge 1.5s infinite;
+        }
+        
+        @keyframes pulse-badge {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 6px rgba(255, 0, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 255, 0);
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .page-header {
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-blue));
+            background-size: 200% 100%;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 8s ease infinite, pulseGlow 4s ease-in-out infinite alternate;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 255, 255, 0.2); }
+            100% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 255, 0.4); }
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.15) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.15) 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            opacity: 0.4;
+            animation: patternMove 20s linear infinite;
+        }
+        
+        @keyframes patternMove {
+            0% { background-position: 0 0, 0 15px, 15px -15px, -15px 0px; }
+            100% { background-position: 100px 100px, 100px 115px, 115px 85px, 85px 100px; }
+        }
+        
+        .page-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            opacity: 0.5;
+            animation: shimmer 6s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: white;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 0, 255, 0.3);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 0, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 0, 255, 0.5); }
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            animation: lineMove 2s ease-in-out infinite;
+        }
+        
+        @keyframes lineMove {
+            0% { transform: scaleX(0.3); opacity: 0; }
+            50% { transform: scaleX(1); opacity: 1; }
+            100% { transform: scaleX(0.3); opacity: 0; }
+        }
+        
+        .page-subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            animation: subtitlePulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes subtitlePulse {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        /* Tab Navigation */
+        .tab-container {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        /* Animated swipe indicator */
+        .tab-nav::after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            bottom: -10px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            border-radius: 4px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+            filter: blur(1px);
+            width: 80px;
+        }
+        
+        .tab-nav[data-active="lectures"]::after {
+            left: calc(25% - 40px);
+            transform: scaleX(1.2);
+        }
+        
+        .tab-nav[data-active="notes"]::after {
+            left: calc(75% - 40px);
+            transform: scaleX(1.2);
+        }
+        
+        .tab-button {
+            padding: 0.8rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.3);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+        }
+        
+        .tab-button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .tab-button.active {
+            background: transparent;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 255, 255, 0.5);
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .tab-button.active::before {
+            left: 0;
+            transform: none;
+            opacity: 1;
+        }
+        
+        .tab-content {
+            width: 100%;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Button Grid */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .grid-button {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            animation: subtle-glow 3s infinite alternate;
+        }
+        
+        @keyframes subtle-glow {
+            0% {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 255, 0.4);
+            }
+        }
+        
+        .grid-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.15), 
+                rgba(157, 0, 255, 0.15), 
+                rgba(255, 0, 255, 0.15));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .grid-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(0, 255, 255, 0.4);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+        
+        .grid-button:hover::before {
+            opacity: 1;
+        }
+        
+        .button-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        
+        .button-icon {
+            width: 45px;
+            height: 45px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            padding: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .grid-button:hover .button-icon {
+            color: var(--neon-pink);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+        }
+        
+        .button-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            margin-bottom: 5px;
+        }
+        
+        .button-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .button-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .button-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .label-lecture {
+            background: linear-gradient(90deg, var(--neon-blue), #0066ff);
+            color: white;
+        }
+        
+        .label-note {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+            color: white;
+        }
+        
+        .button-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+        }
+        
+        .grid-button:hover .button-logo {
+            opacity: 1;
+            transform: scale(1.1) rotate(10deg);
+            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.8));
+        }
+        
+        /* Search Bar */
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .footer-logo-img {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-img img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-description {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+        }
+        
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 1.2rem;
+            display: inline-block;
+        }
+        
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-links a:hover::before {
+            color: var(--neon-pink);
+        }
+        
+        .footer-contact h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            color: #aaa;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            min-width: 20px;
+        }
+        
+        .contact-text {
+            line-height: 1.5;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .copyright a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .copyright a:hover {
+            color: var(--neon-pink);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0.8rem 1rem;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.9);
+                padding: 1rem 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 0;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .tab-button {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .grid-button {
+                padding: 15px;
+            }
+            
+            .button-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .button-text {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.4rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .tab-nav {
+                gap: 1rem;
+            }
+            
+            .tab-button {
+                padding: 0.7rem 1.8rem;
+                font-size: 1rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .grid-button {
+                padding: 15px;
+            }
+            
+            .button-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .button-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .page-header {
+                padding: 1.8rem 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .tab-nav {
+                gap: 0.8rem;
+            }
+            
+            .tab-button {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .search-container {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .search-input {
+                padding: 0.8rem 1rem 0.8rem 2.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .search-icon {
+                left: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .grid-button {
+                padding: 15px;
+            }
+            
+            .button-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .button-date {
+                font-size: 0.7rem;
+            }
+            
+            .button-label {
+                font-size: 0.7rem;
+            }
+            
+            /* Fix tab nav indicator for mobile */
+            .tab-nav[data-active="lectures"]::after {
+                left: calc(25% - 30px);
+                width: 60px;
+            }
+            
+            .tab-nav[data-active="notes"]::after {
+                left: calc(75% - 30px);
+                width: 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.8rem;
+            }
+            
+            .page-header {
+                padding: 1.5rem 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .tab-nav {
+                gap: 0.5rem;
+            }
+            
+            .tab-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .search-input {
+                padding: 0.7rem 1rem 0.7rem 2.2rem;
+                font-size: 0.85rem;
+            }
+            
+            .grid-button {
+                padding: 12px;
+            }
+            
+            .button-icon {
+                width: 35px;
+                height: 35px;
+                margin-right: 10px;
+                font-size: 1.2rem;
+            }
+            
+            .button-text {
+                font-size: 1rem;
+            }
+            
+            .button-date, .button-label {
+                font-size: 0.65rem;
+            }
+            
+            /* Adjust navbar for very small screens */
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .navbar-toggler {
+                padding: 0.3rem 0.5rem;
+            }
+            
+            /* Fix tab nav indicator for small mobile */
+            .tab-nav[data-active="lectures"]::after {
+                left: calc(25% - 25px);
+                width: 50px;
+            }
+            
+            .tab-nav[data-active="notes"]::after {
+                left: calc(75% - 25px);
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                <span class="logo-text">STUDY-WORLD</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                <li><a href="index.html#classes" class="nav-link">Classes</a></li>
+                <li><a href="next-toppers.html" class="nav-link">Next Toppers</a></li>
+                <li>
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">11th ~ Geography</h1>
+            <p class="page-subtitle">All Lectures & Notes</p>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <div class="tab-nav">
+                <button class="tab-button active" data-tab="lectures">Lectures</button>
+                <button class="tab-button" data-tab="notes">Notes</button>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-bar" placeholder="Search..." id="search-input">
+            </div>
+            
+            <!-- Lectures Tab Content -->
+            <div class="tab-content active" id="lectures-tab">
+                <div class="button-grid">
+                    <!-- Lecture 1 -->
+                    <a href="https://www.youtube.com/live/Ek07siVm4Gc?si=NH6JkDfkoTtUOowt" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography As A Discipline ~ L1</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 1</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+                    
+                    <!-- Lecture 2 -->
+                    <a href="video-player72.html" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography As A Discipline ~ L2</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 2</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Lecture 3 -->
+                    <a href="video-player73.html" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography As A Discipline ~ L3</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 3</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Lecture 4 -->
+                    <a href="video-player74.html" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography As A Discipline ~ L4</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 4</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Lecture 5 -->
+                    <a href="video-player75.html" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ L1</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 1</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                       <!-- Lecture 6 -->
+                       <a href="video-player76.html" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ L2</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 2</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                       <!-- Lecture 7 -->
+                       <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4367423%2F174616461987894925515%2Findex_3.m3u8" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ L3</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 3</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                       <!-- Lecture 8 -->
+                       <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4367419%2F174616436124364925515%2Findex_3.m3u8" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ L4</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 4</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+                    
+                      <!-- Lecture 9 -->
+                      <a href="play.html?lessonurl=https%3A%2F%2Fd1qcficr3lu37x.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4367407%2F174616400545134925515%2Findex_3.m3u8" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Origin & Evolution of Earth ~ L1</div>
+                            <div class="button-meta">
+                                <span class="button-date">L - 1</span>
+                                <span class="button-label label-lecture">Lecture</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Notes Tab Content -->
+            <div class="tab-content" id="notes-tab">
+                <div class="button-grid">
+                    <!-- Note 1 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/14579511610453788.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography Discipline ~ 1</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+                    
+                    <!-- Note 2 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/309187985302491800.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography Discipline ~ 2</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Note 3 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/432116772111309440.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography Discipline ~ 3</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">Notes</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Note 4 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/794718074308911200.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">Geography Discipline ~ 4</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">NOTES</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                    <!-- Note 5 -->
+                    <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/82004233425869300.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ 1</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">NOTES</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                      <!-- Note 6 -->
+                      <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/771189748269337100.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ 2</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">NOTES</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                      <!-- Note 7 -->
+                      <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/390644343871015700.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ 3</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">NOTES</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                      <!-- Note 8 -->
+                      <a href="https://dxixtlyravvxx.cloudfront.net/540admin_v1/file_manager/pdf/737472644490925200.pdf" class="grid-button" target="_blank">
+                        <div class="button-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="button-content">
+                            <div class="button-text">India & it's Location ~ 4</div>
+                            <div class="button-meta">
+                                <span class="button-date">Geography</span>
+                                <span class="button-label label-note">NOTES</span>
+                            </div>
+                        </div>
+                        <img src="https://ik.imagekit.io/krishan1234/Next.png?updatedAt=1745156228866" alt="Logo" class="button-logo">
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-img">
+                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                    <span class="footer-logo-text">STUDY-WORLD</span>
+                </div>
+                <p class="footer-description">Your gateway to academic excellence. We provide free educational resources for students of Class 10th and 11th.</p>
+                <div class="footer-social">
+                    <a href="https://t.me/CENSORED_POLITICSS" class="social-icon" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#classes">Classes</a></li>
+                    <li><a href="next-toppers.html">Next Toppers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Classes</h3>
+                <ul>
+                    <li><a href="class10.html">Class 10</a></li>
+                    <li><a href="class11.html">Class 11</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        info@studyworld.com
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-text">
+                        @CENSORED_POLITICSS
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for tab switching and mobile menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Toggle menu icon
+                const spans = mobileMenu.querySelectorAll('span');
+                spans[0].classList.toggle('rotate-45');
+                spans[1].classList.toggle('opacity-0');
+                spans[2].classList.toggle('rotate-neg-45');
+            });
+            
+            // Tab switching with swipe indicator
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabNav = document.querySelector('.tab-nav');
+            
+            // Set initial active state
+            tabNav.setAttribute('data-active', 'lectures');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // Update the swipe indicator
+                    tabNav.setAttribute('data-active', tabId);
+                    
+                    // Add a subtle animation effect
+                    tabNav.style.animation = 'none';
+                    setTimeout(() => {
+                        tabNav.style.animation = '';
+                    }, 10);
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const activeTabId = document.querySelector('.tab-button.active').getAttribute('data-tab');
+                const activeTabContent = document.getElementById(`${activeTabId}-tab`);
+                const activeTabButtons = activeTabContent.querySelectorAll('.grid-button');
+                
+                // Only search within the active tab's buttons
+                activeTabButtons.forEach(button => {
+                    const buttonText = button.querySelector('.button-text').textContent.toLowerCase();
+                    if (buttonText.includes(searchTerm)) {
+                        button.style.display = 'flex';
+                    } else {
+                        button.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Clear search when switching tabs
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    searchInput.value = '';
+                    // Show all buttons when clearing search
+                    document.querySelectorAll('.grid-button').forEach(btn => {
+                        btn.style.display = 'flex';
+                    });
+                });
+            });
+        });
+    </script>
+    <!-- Notification Popup -->
+    <div class="notification-popup" id="notification-popup">
+        <div class="notification-header">
+            <div class="notification-title">Notifications</div>
+            <button class="notification-close" id="notification-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-content">
+            Need something? Feel free to reach out for any questions or assistance!
+        </div>
+        <div class="notification-contact">
+            <i class="fab fa-telegram"></i>
+            <a href="https://t.me/CENSORED_POLITICSS" target="_blank">Click Here</a>
+        </div>
+    </div>
+
+    <script>
+        // Notification popup functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const notificationBtn = document.querySelector('.notification-btn');
+            const notificationPopup = document.getElementById('notification-popup');
+            const notificationClose = document.getElementById('notification-close');
+            const notificationBadge = document.querySelector('.notification-badge');
+            
+            // Toggle notification popup
+            notificationBtn.addEventListener('click', function() {
+                notificationPopup.classList.toggle('show');
+                
+                // Remove notification badge when clicked
+                if (notificationBadge) {
+                    notificationBadge.style.display = 'none';
+                }
+            });
+            
+            // Close notification popup
+            notificationClose.addEventListener('click', function() {
+                notificationPopup.classList.remove('show');
+            });
+            
+            // Close popup when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!notificationPopup.contains(event.target) && !notificationBtn.contains(event.target)) {
+                    notificationPopup.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

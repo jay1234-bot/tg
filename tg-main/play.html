@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Video - Player</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        /* Theme Variables */
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #9d00ff;
+            --highlight-color: #00ffcc;
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(0, 0, 0, 0.85);
+            --controls-bg: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            --title-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            --progress-gradient: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+            --volume-gradient: linear-gradient(90deg, #00ff00, var(--highlight-color));
+            --logo-border: var(--primary-color);
+            --logo-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        /* Ocean Theme */
+        .theme-ocean {
+            --primary-color: #00a8ff;
+            --secondary-color: #0097e6;
+            --accent-color: #00d2d3;
+            --highlight-color: #5f27cd;
+            --dark-bg: #1e3799;
+            --darker-bg: #0c2461;
+            --glass-bg: rgba(14, 36, 97, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Sunset Theme */
+        .theme-sunset {
+            --primary-color: #ff9f43;
+            --secondary-color: #ee5253;
+            --accent-color: #ff6b6b;
+            --highlight-color: #feca57;
+            --dark-bg: #2c2c54;
+            --darker-bg: #1e1e30;
+            --glass-bg: rgba(44, 44, 84, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+        
+        .header {
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 15px;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, 
+                #00ffff 0%,
+                #ff00ff 50%,
+                #9d00ff 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .logo-text span:first-child {
+            color: #00ffff;
+        }
+        
+        .logo-text span:last-child {
+            background: linear-gradient(90deg, #ff00ff, #9d00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .video-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            min-height: 0;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            aspect-ratio: 16 / 9;
+            margin: 0 auto;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--controls-bg);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .control-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-button:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .progress-container {
+            flex: 1;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s ease;
+        }
+        
+        .progress-container:hover {
+            height: 8px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--progress-gradient);
+            border-radius: 5px;
+            position: relative;
+            width: 0;
+            transition: width 0.1s linear;
+        }
+        
+        .progress-handle {
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(0, -50%) scale(0);
+            transition: transform 0.2s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .progress-container:hover .progress-handle {
+            transform: translate(0, -50%) scale(1);
+        }
+        
+        .time-display {
+            color: white;
+            font-size: 14px;
+            margin: 0 10px;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            min-width: 110px;
+            text-align: center;
+        }
+        
+        .time-separator {
+            color: var(--primary-color);
+            margin: 0 4px;
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .volume-slider {
+            width: 0;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: width 0.3s ease;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .volume-container:hover .volume-slider {
+            width: 80px;
+        }
+        
+        .volume-level {
+            height: 100%;
+            background: var(--volume-gradient);
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .theme-selector {
+            position: relative;
+            margin-left: auto;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .theme-options {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 10px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            width: 180px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            display: none;
+            z-index: 1000;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .theme-options.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .theme-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .theme-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .theme-option.active {
+            color: var(--primary-color);
+        }
+
+        .theme-option.active::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .speed-panel {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1000;
+            margin-bottom: 10px;
+        }
+
+        .speed-panel.show {
+            display: block;
+        }
+
+        .speed-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .speed-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .speed-option.active {
+            color: var(--primary-color);
+        }
+
+        .quality-panel {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1000;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .quality-panel.show {
+            display: block;
+        }
+
+        .quality-panel .panel-title {
+            color: var(--primary-color);
+            font-size: 14px;
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 8px;
+        }
+
+        .quality-option {
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quality-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 20px;
+        }
+
+        .quality-option.active {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .quality-option.active::after {
+            content: '•';
+            color: var(--primary-color);
+            margin-left: 8px;
+        }
+
+        .skip-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+
+        .skip-button:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .skip-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .skip-button:hover i {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .video-wrapper {
+                padding: 0;
+            }
+
+            .video-container {
+                border-radius: 0;
+            }
+
+            .custom-controls {
+                padding: 10px;
+            }
+
+            .control-button {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .custom-controls {
+                padding: 8px;
+            }
+
+            .control-button {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .volume-container:hover .volume-slider {
+                width: 60px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .logo img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" alt="STUDY-WORLD Logo">
+                <div class="logo-text">
+                    <span>STUDY</span>-<span>WORLD</span>
+                </div>
+            </a>
+        </div>
+        <div class="theme-selector">
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-palette"></i>
+            </button>
+            <div class="theme-options" id="theme-options">
+                <div class="theme-option" data-theme="default">Default Theme</div>
+                <div class="theme-option" data-theme="ocean">Ocean Theme</div>
+                <div class="theme-option" data-theme="sunset">Sunset Theme</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="video-wrapper">
+        <div class="video-container">
+            <video id="video" playsinline></video>
+            <div class="loading" id="loading"></div>
+            
+            <div class="custom-controls" id="controls">
+                <button class="control-button" id="play-pause">
+                    <i class="fas fa-play" id="play-icon"></i>
+                </button>
+                
+                <button class="skip-button" id="rewind">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-handle"></div>
+                    </div>
+                </div>
+                
+                <button class="skip-button" id="forward">
+                    <i class="fas fa-forward-step"></i>
+                </button>
+                
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span class="time-separator">/</span>
+                    <span id="total-time">0:00</span>
+                </div>
+                
+                <div class="volume-container">
+                    <button class="control-button" id="volume-button">
+                        <i class="fas fa-volume-up" id="volume-icon"></i>
+                    </button>
+                    <div class="volume-slider" id="volume-slider">
+                        <div class="volume-level" id="volume-level"></div>
+                    </div>
+                </div>
+                
+                <button class="control-button" id="speed-button">
+                    <i class="fas fa-tachometer-alt"></i>
+                </button>
+
+                <div class="speed-panel" id="speed-panel">
+                    <div class="speed-option" data-speed="0.5">0.5x</div>
+                    <div class="speed-option" data-speed="0.75">0.75x</div>
+                    <div class="speed-option active" data-speed="1">1x</div>
+                    <div class="speed-option" data-speed="1.25">1.25x</div>
+                    <div class="speed-option" data-speed="1.5">1.5x</div>
+                    <div class="speed-option" data-speed="2">2x</div>
+                </div>
+
+                <button class="control-button" id="quality-button">
+                    <i class="fas fa-cog"></i>
+                </button>
+
+                <div class="quality-panel" id="quality-panel">
+                    <div class="panel-title">Quality Settings</div>
+                    <div class="quality-option active" data-quality="-1">Auto</div>
+                </div>
+                
+                <button class="control-button" id="fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('video');
+            const playPauseButton = document.getElementById('play-pause');
+            const playIcon = document.getElementById('play-icon');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const volumeButton = document.getElementById('volume-button');
+            const volumeIcon = document.getElementById('volume-icon');
+            const volumeSlider = document.getElementById('volume-slider');
+            const volumeLevel = document.getElementById('volume-level');
+            const fullscreenButton = document.getElementById('fullscreen');
+            const loading = document.getElementById('loading');
+            const speedButton = document.getElementById('speed-button');
+            const speedPanel = document.getElementById('speed-panel');
+            const qualityButton = document.getElementById('quality-button');
+            const qualityPanel = document.getElementById('quality-panel');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeOptions = document.getElementById('theme-options');
+
+            // Disable right-click
+            document.querySelector('.video-container').addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            video.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Get video source from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoSrc = urlParams.get('lessonurl');
+
+            if (!videoSrc) {
+                alert('No video URL provided');
+                return;
+            }
+
+            // Show loading indicator
+            loading.style.display = 'block';
+
+            // Initialize HLS
+            if (Hls.isSupported()) {
+                const hls = new Hls({
+                    debug: false,
+                    enableWorker: true,
+                    maxBufferSize: 0,
+                    maxBufferLength: 30,
+                    capLevelToPlayerSize: true,
+                    startLevel: -1
+                });
+
+                // Bind HLS events
+                hls.on(Hls.Events.MEDIA_ATTACHED, function() {
+                    console.log('HLS Media attached');
+                });
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+                    console.log('HLS Manifest parsed, found ' + data.levels.length + ' quality levels');
+                    loading.style.display = 'none';
+                    
+                    // Clear existing quality options
+                    qualityPanel.innerHTML = '<div class="panel-title">Quality Settings</div>';
+                    
+                    // Add Auto option
+                    const autoOption = document.createElement('div');
+                    autoOption.className = 'quality-option active';
+                    autoOption.dataset.quality = '-1';
+                    autoOption.textContent = 'Auto';
+                    qualityPanel.appendChild(autoOption);
+                    
+                    // Add quality options
+                    data.levels.forEach((level, index) => {
+                        const option = document.createElement('div');
+                        option.className = 'quality-option';
+                        option.dataset.quality = index.toString();
+                        
+                        // Format the quality label
+                        let qualityLabel;
+                        if (level.height) {
+                            qualityLabel = `${level.height}p`;
+                            if (level.height >= 720) {
+                                qualityLabel += ' HD';
+                            }
+                        } else {
+                            qualityLabel = `Level ${index + 1}`;
+                        }
+                        
+                        option.textContent = qualityLabel;
+                        qualityPanel.appendChild(option);
+                    });
+
+                    // Handle quality selection
+                    document.querySelectorAll('.quality-option').forEach(option => {
+                        option.addEventListener('click', function() {
+                            const quality = parseInt(this.dataset.quality);
+                            
+                            // Update HLS quality level
+                            hls.currentLevel = quality;
+                            
+                            // Update UI
+                            document.querySelectorAll('.quality-option').forEach(opt => {
+                                opt.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                            
+                            // Close quality panel
+                            qualityPanel.classList.remove('show');
+                            
+                            // Save selected quality to localStorage
+                            localStorage.setItem('preferredQuality', quality.toString());
+                        });
+                    });
+
+                    // Try to restore preferred quality
+                    const preferredQuality = parseInt(localStorage.getItem('preferredQuality'));
+                    if (!isNaN(preferredQuality) && preferredQuality >= -1) {
+                        hls.currentLevel = preferredQuality;
+                        const option = qualityPanel.querySelector(`[data-quality="${preferredQuality}"]`);
+                        if (option) {
+                            document.querySelectorAll('.quality-option').forEach(opt => opt.classList.remove('active'));
+                            option.classList.add('active');
+                        }
+                    }
+
+                    // Start playback
+                    video.play().catch(function(error) {
+                        console.log('Auto-play prevented:', error);
+                    });
+                });
+
+                // Handle quality level loading
+                hls.on(Hls.Events.LEVEL_SWITCHED, function(event, data) {
+                    const currentLevel = hls.levels[data.level];
+                    const qualityOptions = document.querySelectorAll('.quality-option');
+                    
+                    qualityOptions.forEach(option => {
+                        const quality = parseInt(option.dataset.quality);
+                        if (quality === hls.currentLevel) {
+                            option.classList.add('active');
+                        } else {
+                            option.classList.remove('active');
+                        }
+                    });
+                });
+
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    if (data.fatal) {
+                        console.error('HLS error:', data);
+                        switch(data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                console.log('Network error, trying to recover...');
+                                hls.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                console.log('Media error, trying to recover...');
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                console.log('Unrecoverable error, switching to direct playback');
+                                initFallbackPlayer();
+                                break;
+                        }
+                    }
+                });
+
+                // Load source
+                try {
+                    hls.loadSource(videoSrc);
+                    hls.attachMedia(video);
+                } catch (error) {
+                    console.error('Error loading video:', error);
+                    initFallbackPlayer();
+                }
+
+                // Quality button click handler
+                qualityButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    qualityPanel.classList.toggle('show');
+                });
+
+                // Close quality panel when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!qualityPanel.contains(e.target) && !qualityButton.contains(e.target)) {
+                        qualityPanel.classList.remove('show');
+                    }
+                });
+            } else {
+                initFallbackPlayer();
+            }
+
+            function initFallbackPlayer() {
+                console.log('Initializing fallback player');
+                video.src = videoSrc;
+                video.addEventListener('loadedmetadata', function() {
+                    loading.style.display = 'none';
+                });
+                qualityButton.style.display = 'none'; // Hide quality button for fallback player
+            }
+
+            // Theme control
+            themeToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                themeOptions.classList.toggle('show');
+                
+                // Close other panels when opening theme panel
+                speedPanel.classList.remove('show');
+                qualityPanel.classList.remove('show');
+            });
+
+            // Theme selection
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const theme = this.dataset.theme;
+                    
+                    // Remove all theme classes
+                    document.body.classList.remove('theme-ocean', 'theme-sunset');
+                    
+                    // Add new theme class if not default
+                    if (theme !== 'default') {
+                        document.body.classList.add(`theme-${theme}`);
+                    }
+                    
+                    // Save theme preference
+                    localStorage.setItem('videoPlayerTheme', theme);
+                    
+                    // Close theme panel
+                    themeOptions.classList.remove('show');
+                    
+                    // Update active state
+                    document.querySelectorAll('.theme-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // Load saved theme on page load
+            const savedTheme = localStorage.getItem('videoPlayerTheme') || 'default';
+            if (savedTheme !== 'default') {
+                document.body.classList.add(`theme-${savedTheme}`);
+            }
+
+            // Update active state in theme panel
+            const activeThemeOption = document.querySelector(`.theme-option[data-theme="${savedTheme}"]`);
+            if (activeThemeOption) {
+                document.querySelectorAll('.theme-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                activeThemeOption.classList.add('active');
+            }
+
+            // Close panels when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!speedPanel.contains(e.target) && !speedButton.contains(e.target)) {
+                    speedPanel.classList.remove('show');
+                }
+                if (!qualityPanel.contains(e.target) && !qualityButton.contains(e.target)) {
+                    qualityPanel.classList.remove('show');
+                }
+                if (!themeOptions.contains(e.target) && !themeToggle.contains(e.target)) {
+                    themeOptions.classList.remove('show');
+                }
+            });
+
+            // Video click handler for play/pause
+            video.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                togglePlay();
+            });
+
+            // Update the togglePlay function to be more robust
+            function togglePlay() {
+                if (video.paused) {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            playIcon.className = 'fas fa-pause';
+                        }).catch(error => {
+                            console.log('Error playing video:', error);
+                        });
+                    }
+                } else {
+                    video.pause();
+                    playIcon.className = 'fas fa-play';
+                }
+            }
+
+            // Play/Pause functionality
+            playPauseButton.addEventListener('click', togglePlay);
+
+            // Update play/pause button on video events
+            video.addEventListener('play', () => {
+                playIcon.className = 'fas fa-pause';
+            });
+
+            video.addEventListener('pause', () => {
+                playIcon.className = 'fas fa-play';
+            });
+
+            // Volume control
+            let lastVolume = 1;
+            volumeButton.addEventListener('click', () => {
+                if (video.volume > 0) {
+                    lastVolume = video.volume;
+                    video.volume = 0;
+                } else {
+                    video.volume = lastVolume;
+                }
+                updateVolumeIcon();
+            });
+
+            volumeSlider.addEventListener('click', (e) => {
+                const rect = volumeSlider.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                video.volume = Math.max(0, Math.min(1, pos));
+                volumeLevel.style.width = (video.volume * 100) + '%';
+                updateVolumeIcon();
+            });
+
+            function updateVolumeIcon() {
+                if (video.volume === 0) {
+                    volumeIcon.className = 'fas fa-volume-mute';
+                } else if (video.volume < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down';
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up';
+                }
+            }
+
+            // Format time function
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return "0:00";
+                
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                seconds = Math.floor(seconds % 60);
+                
+                if (hours > 0) {
+                    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+                return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            // Time update handler
+            video.addEventListener('timeupdate', () => {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressBar.style.width = progress + '%';
+                
+                document.getElementById('current-time').textContent = formatTime(video.currentTime);
+                document.getElementById('total-time').textContent = formatTime(video.duration);
+            });
+
+            // Skip buttons
+            const rewindButton = document.getElementById('rewind');
+            const forwardButton = document.getElementById('forward');
+
+            rewindButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.currentTime = Math.max(0, video.currentTime - 10);
+            });
+
+            forwardButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            });
+
+            // Keyboard shortcuts for skipping
+            document.addEventListener('keydown', (e) => {
+                switch(e.key.toLowerCase()) {
+                    case 'arrowleft':
+                        e.preventDefault();
+                        video.currentTime = Math.max(0, video.currentTime - 10);
+                        break;
+                    case 'arrowright':
+                        e.preventDefault();
+                        video.currentTime = Math.min(video.duration, video.currentTime + 10);
+                        break;
+                }
+            });
+
+            // Fix fullscreen click behavior
+            let isFullscreen = false;
+
+            fullscreenButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!document.fullscreenElement) {
+                    video.requestFullscreen();
+                    isFullscreen = true;
+                } else {
+                    document.exitFullscreen();
+                    isFullscreen = false;
+                }
+            });
+
+            // Enhanced progress bar interaction
+            let isDragging = false;
+
+            progressContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateProgress(e);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    updateProgress(e);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            function updateProgress(e) {
+                const rect = progressContainer.getBoundingClientRect();
+                const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                video.currentTime = pos * video.duration;
+            }
+
+            // Speed control
+            speedButton.addEventListener('click', () => {
+                speedPanel.classList.toggle('show');
+            });
+
+            document.querySelectorAll('.speed-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const speed = parseFloat(this.dataset.speed);
+                    video.playbackRate = speed;
+                    document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    speedPanel.classList.remove('show');
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                switch(e.key.toLowerCase()) {
+                    case ' ':
+                        e.preventDefault();
+                        togglePlay();
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        fullscreenButton.click();
+                        break;
+                    case 'm':
+                        e.preventDefault();
+                        volumeButton.click();
+                        break;
+                }
+            });
+
+            // Loading error handling
+            video.addEventListener('error', function(e) {
+                console.error('Video error:', e);
+                loading.style.display = 'none';
+                alert('Error loading video. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html> 
