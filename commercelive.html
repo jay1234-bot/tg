@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LIVE CLASS | STUDY-WORLD</title>
+    <title>LIVE CLASS | STUDY WORLD</title>
     <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -111,17 +111,54 @@
         }
         
         body {
-            background-color: var(--dark-bg);
+            background: linear-gradient(120deg, #0f2027, #2c5364, #1a2980, #26d0ce);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
             position: relative;
             overflow-x: hidden;
             transition: background-color 0.5s ease;
+        }
+        
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        
+        /* Starfield background */
+        .star-bg {
+            pointer-events: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.85;
+            box-shadow: 0 0 6px 2px #fff, 0 0 12px 4px #0ff2;
+            animation: twinkle 2.5s infinite;
+        }
+        .star.twinkle {
+            animation: twinkle 1.5s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Glow around main content */
+        .video-wrapper {
+            box-shadow: 0 0 60px 0 rgba(0,255,255,0.12), 0 0 120px 0 rgba(255,0,255,0.10);
+            border-radius: 30px;
+            background: rgba(10,10,20,0.7);
+            backdrop-filter: blur(2px);
         }
         
         /* Header Styles */
@@ -230,6 +267,7 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
         
         .class-card:hover {
@@ -267,11 +305,30 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .join-button:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px var(--primary-color);
+        }
+        
+        .join-button.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            position: relative;
+        }
+        
+        .join-button.disabled:hover::after {
+            content: '❌';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         
         /* Responsive Styles */
@@ -542,9 +599,51 @@
                 text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
             }
         }
+
+        /* Live Sticker Styles */
+        .live-sticker {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: blink 1s infinite;
+            display: none;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Live Header Sticker Styles */
+        .live-header-sticker {
+            display: inline-block;
+            background: #ff0055;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 7px 22px;
+            border-radius: 20px;
+            box-shadow: 0 0 18px #ff0055, 0 0 8px #fff2;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            animation: blink-header-live 1s infinite;
+            position: relative;
+        }
+        @keyframes blink-header-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
+    <div class="star-bg" aria-hidden="true"></div>
     <header class="header">
         <div class="logo-container">
             <div class="logo">
@@ -583,32 +682,35 @@
     </div>
     
     <div class="video-wrapper">
+        <div class="live-header-sticker">LIVE</div>
         <h1 class="video-title">Live Classes</h1>
         
         <div class="class-cards-container">
             <!-- Class 1 Card -->
             <div class="class-card">
-                <h2>Commerce - Class 1</h2>
+                <div class="live-sticker" id="live-sticker-1">LIVE</div>
+                <h2>11 - MATHS</h2>
                 <p>Evening Class</p>
                 <p>Time: 5:15 PM – 6:40 PM</p>
                 <p id="class1-status" class="class-status">Class Over</p>
-                <button id="join-live-1" class="join-button" onclick="joinClass(1)">Join Live</button>
+                <a href="play.html?lessonurl=https://d1kw75zcv4u98c.cloudfront.net/out/v1/5df5be72d17649f79577314291c6d2fc/index_3.m3u8" id="join-live-1" class="join-button" onclick="return joinClass(1)">Join Live</a>
             </div>
 
             <!-- Class 2 Card -->
-            <div class="class-card">
-                <h2>Commerce - Class 2</h2>
+            <!-- <div class="class-card">
+                <div class="live-sticker" id="live-sticker-2">LIVE</div>
+                <h2>Aarambh - Class 2</h2>
                 <p>Night Class</p>
                 <p>Time: 8:15 PM – 9:40 PM</p>
                 <p id="class2-status" class="class-status">Starts in <span id="countdown">53m</span></p>
-                <button id="join-live-2" class="join-button" onclick="joinClass(2)">Join Live</button>
-            </div>
+                <a href="play.html?lessonurl=https://d1kw75zcv4u98c.cloudfront.net/out/v1/287810d967cc428e9bd992002e55b72c/index_3.m3u8" id="join-live-2" class="join-button" onclick="return joinClass(2)">Join Live</a>
+            </div> -->
         </div>
     </div>
     
     <div class="custom-modal">
         <div class="modal-content">
-            <h3 class="modal-title">THIS PAGE SAYS</h3>
+            <h3 class="modal-title">This page says</h3>
             <p class="modal-message"></p>
             <button class="modal-button">OK</button>
         </div>
@@ -733,21 +835,21 @@
             
             // CLASS 1 SCHEDULE (Evening Class)
             const CLASS1_START_HOUR = 17;   // 5 PM
-            const CLASS1_START_MINUTE = 0; // 15 minutes
-            const CLASS1_END_HOUR = 18;     // 6 PM
-            const CLASS1_END_MINUTE = 55;   // 40 minutes
+            const CLASS1_START_MINUTE = 0;  // 0 minutes
+            const CLASS1_END_HOUR = 19;     // 7 PM
+            const CLASS1_END_MINUTE = 0;    // 0 minutes
             
             // CLASS 2 SCHEDULE (Night Class)
             const CLASS2_START_HOUR = 20;   // 8 PM
-            const CLASS2_START_MINUTE = 0; // 15 minutes
-            const CLASS2_END_HOUR = 22;     // 9 PM
-            const CLASS2_END_MINUTE = 0;   // 40 minutes
+            const CLASS2_START_MINUTE = 0;  // 0 minutes
+            const CLASS2_END_HOUR = 22;     // 10 PM
+            const CLASS2_END_MINUTE = 0;    // 0 minutes
             
             // Convert class times to minutes for easier comparison
-            const class1StartTime = CLASS1_START_HOUR * 60 + CLASS1_START_MINUTE; // 5:15 PM in minutes
-            const class1EndTime = CLASS1_END_HOUR * 60 + CLASS1_END_MINUTE;      // 6:40 PM in minutes
-            const class2StartTime = CLASS2_START_HOUR * 60 + CLASS2_START_MINUTE; // 8:15 PM in minutes
-            const class2EndTime = CLASS2_END_HOUR * 60 + CLASS2_END_MINUTE;      // 9:40 PM in minutes
+            const class1StartTime = CLASS1_START_HOUR * 60 + CLASS1_START_MINUTE; // 5:00 PM in minutes
+            const class1EndTime = CLASS1_END_HOUR * 60 + CLASS1_END_MINUTE;      // 7:00 PM in minutes
+            const class2StartTime = CLASS2_START_HOUR * 60 + CLASS2_START_MINUTE; // 8:00 PM in minutes
+            const class2EndTime = CLASS2_END_HOUR * 60 + CLASS2_END_MINUTE;      // 10:00 PM in minutes
             
             // Class joining functionality
             window.joinClass = function(classNumber) {
@@ -762,30 +864,27 @@
                 if (classNumber === 1) {
                     // If class is currently live
                     if (currentTimeInMinutes >= class1StartTime && currentTimeInMinutes <= class1EndTime) {
-                        window.location.href = 'live5.html';
+                        // Just prevent default and return true to allow href to work
+                        return true;
                     } 
-                    // If class has already ended
-                    else if (currentTimeInMinutes > class1EndTime) {
-                        showCustomModal('Class khatam ho gayi beta dhyaan kidhar rehta hai aapka??');
-                    }
-                    // If class hasn't started yet
+                    // If class has already ended or hasn't started
                     else {
-                        showCustomModal('Thoda Wait karo jii class chalu nahi hui');
+                        showCustomModal('Class is not live at the moment');
+                        return false;
                     }
                 } else if (classNumber === 2) {
                     // If class is currently live
                     if (currentTimeInMinutes >= class2StartTime && currentTimeInMinutes <= class2EndTime) {
-                        window.location.href = 'live6.html';
+                        // Just prevent default and return true to allow href to work
+                        return true;
                     }
-                    // If class has already ended
-                    else if (currentTimeInMinutes > class2EndTime) {
-                        showCustomModal('Class khatam ho gayi beta dhyaan kidhar rehta hai aapka??');
-                    }
-                    // If class hasn't started yet
+                    // If class has already ended or hasn't started
                     else {
-                        showCustomModal('Thoda Wait karo jii class chalu nahi hui');
+                        showCustomModal('Class is not live at the moment');
+                        return false;
                     }
                 }
+                return false;
             };
 
             /**
@@ -805,12 +904,16 @@
                  * CLASS 1 STATUS UPDATE (Evening Class)
                  ********************************************************************/
                 const class1Status = document.getElementById('class1-status');
+                const joinButton1 = document.getElementById('join-live-1');
+                const liveSticker1 = document.getElementById('live-sticker-1');
                 
                 // Check if Class 1 is currently live
                 if (currentTimeInMinutes >= class1StartTime && currentTimeInMinutes <= class1EndTime) {
                     // Class 1 is happening right now
                     class1Status.innerHTML = 'Live Now';
                     class1Status.style.color = '#ff0000';
+                    joinButton1.classList.remove('disabled');
+                    liveSticker1.style.display = 'block';
                 } 
                 // Check if Class 1 is in the future
                 else if (currentTimeInMinutes < class1StartTime) {
@@ -821,28 +924,34 @@
                     
                     // Format the countdown display
                     if (hoursRemaining > 0) {
-                        // Show hours and minutes if more than an hour remains
                         class1Status.innerHTML = `Starts in <span>${hoursRemaining}h ${minsRemaining}m</span>`;
                     } else {
-                        // Show only minutes if less than an hour remains
                         class1Status.innerHTML = `Starts in <span>${minsRemaining}m</span>`;
                     }
+                    joinButton1.classList.add('disabled');
+                    liveSticker1.style.display = 'none';
                 } 
                 // Class 1 has already ended
                 else {
                     class1Status.innerHTML = 'Class Over';
+                    joinButton1.classList.add('disabled');
+                    liveSticker1.style.display = 'none';
                 }
                 
                 /********************************************************************
                  * CLASS 2 STATUS UPDATE (Night Class)
                  ********************************************************************/
                 const class2Status = document.getElementById('class2-status');
+                const joinButton2 = document.getElementById('join-live-2');
+                const liveSticker2 = document.getElementById('live-sticker-2');
                 
                 // Check if Class 2 is currently live
                 if (currentTimeInMinutes >= class2StartTime && currentTimeInMinutes <= class2EndTime) {
                     // Class 2 is happening right now
                     class2Status.innerHTML = 'Live Now';
                     class2Status.style.color = '#ff0000';
+                    joinButton2.classList.remove('disabled');
+                    liveSticker2.style.display = 'block';
                 } 
                 // Check if Class 2 is in the future
                 else if (currentTimeInMinutes < class2StartTime) {
@@ -853,16 +962,18 @@
                     
                     // Format the countdown display
                     if (hoursRemaining > 0) {
-                        // Show hours and minutes if more than an hour remains
                         class2Status.innerHTML = `Starts in <span id="countdown">${hoursRemaining}h ${minsRemaining}m</span>`;
                     } else {
-                        // Show only minutes if less than an hour remains
                         class2Status.innerHTML = `Starts in <span id="countdown">${minsRemaining}m</span>`;
                     }
+                    joinButton2.classList.add('disabled');
+                    liveSticker2.style.display = 'none';
                 } 
                 // Class 2 has already ended
                 else {
                     class2Status.innerHTML = 'Class Over';
+                    joinButton2.classList.add('disabled');
+                    liveSticker2.style.display = 'none';
                 }
             }
 
@@ -872,6 +983,25 @@
             // Initialize countdown
             updateCountdown();
         });
+
+        // Starfield background generator
+        function createStars() {
+            const starBg = document.querySelector('.star-bg');
+            const numStars = 90;
+            for (let i = 0; i < numStars; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                const size = Math.random() * 2.2 + 1.2;
+                s.style.width = `${size}px`;
+                s.style.height = `${size}px`;
+                s.style.left = `${Math.random() * 100}%`;
+                s.style.top = `${Math.random() * 100}%`;
+                if (Math.random() > 0.7) s.classList.add('twinkle');
+                s.style.animationDelay = `${Math.random() * 2.5}s`;
+                starBg.appendChild(s);
+            }
+        }
+        createStars();
     </script>
 </body>
 </html>
