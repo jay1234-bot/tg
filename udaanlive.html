@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>udaan live</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .player-container {
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px 15px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-wrapper::-webkit-media-controls {
+            display: none !important;
+        }
+
+        .video-wrapper::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            border-radius: 3px;
+            position: relative;
+            touch-action: none;
+        }
+
+        .progress {
+            height: 100%;
+            background: #ff4757;
+            border-radius: 3px;
+            width: 0;
+            transition: width 0.1s ease;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .control-button:hover,
+        .control-button:active {
+            background: rgba(255,255,255,0.1);
+            color: #ff4757;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 6px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            outline: none;
+            touch-action: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #ff4757;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #ff4757;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .quality-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .quality-button {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .quality-button:hover,
+        .quality-button:active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .quality-options {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 100px;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quality-menu.active .quality-options {
+            display: block;
+        }
+
+        .quality-option {
+            padding: 8px 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .quality-option:hover {
+            background: rgba(255,255,255,0.1);
+            color: #ff4757;
+        }
+
+        .time-display {
+            color: white;
+            font-size: 13px;
+            min-width: 90px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .live-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #ff4757, #ff3742);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            z-index: 200;
+            box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(255, 71, 87, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4); }
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .batch-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            z-index: 200;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            min-width: 200px;
+        }
+        
+        .batch-info .batch-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        .batch-info .batch-id {
+            opacity: 0.7;
+            font-size: 11px;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Telegram-style Popup */
+        .telegram-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #0088cc, #0077b3);
+            border-radius: 16px;
+            padding: 0;
+            max-width: 340px;
+            width: 90%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: scale(0.9);
+            animation: popupSlide 0.3s ease forwards;
+        }
+
+        .popup-header {
+            padding: 24px 24px 16px;
+            text-align: center;
+            color: white;
+        }
+
+        .popup-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23fff"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-size="30" fill="%230088cc">UG</text></svg>') center/cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: white;
+        }
+
+        .popup-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .popup-body {
+            padding: 0 24px 24px;
+            text-align: center;
+        }
+
+        .popup-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .popup-button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .popup-button.primary {
+            background: white;
+            color: #0088cc;
+        }
+
+        .popup-button.primary:hover {
+            background: #f5f5f5;
+            transform: translateY(-1px);
+        }
+
+        .popup-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popupSlide {
+            from { 
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .error-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 100;
+        }
+
+        .error-screen h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #ff4757;
+        }
+
+        .error-screen p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .custom-controls {
+                padding: 25px 20px 20px;
+                gap: 12px;
+            }
+
+            .control-button {
+                font-size: 18px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .volume-container {
+                gap: 8px;
+            }
+
+            .volume-slider {
+                width: 60px;
+            }
+
+            .time-display {
+                font-size: 12px;
+                min-width: 80px;
+            }
+
+            .live-indicator {
+                top: 15px;
+                left: 15px;
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .batch-info {
+                top: 15px;
+                right: 15px;
+                padding: 10px 12px;
+                min-width: 160px;
+            }
+
+            .popup-content {
+                max-width: 300px;
+                margin: 20px;
+            }
+
+            .popup-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .live-indicator,
+            .batch-info {
+                top: 10px;
+            }
+
+            .live-indicator {
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            .batch-info {
+                right: 10px;
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <div class="video-wrapper">
+            <video id="videoPlayer" playsinline webkit-playsinline muted></video>
+            
+                            <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    LIVE
+                </div>
+                
+                <div class="batch-info">
+                    <div class="batch-name">ꜱᴛᴜᴅʏ-ᴡᴏʀʟᴅ x ᴘᴡ</div>
+                    <div class="batch-id">udaan-goat-2026</div>
+                </div>
+            
+            <div class="custom-controls">
+                <button class="control-button play-pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                
+                <div class="volume-container">
+                    <button class="control-button volume">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <input type="range" class="volume-slider" min="0" max="100" value="100">
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                
+                <div class="time-display">00:00 / 00:00</div>
+                
+                <div class="quality-menu">
+                    <button class="quality-button">Auto</button>
+                    <div class="quality-options">
+                        <div class="quality-option" data-quality="auto">Auto</div>
+                        <div class="quality-option" data-quality="720">720p</div>
+                        <div class="quality-option" data-quality="480">480p</div>
+                        <div class="quality-option" data-quality="360">360p</div>
+                        <div class="quality-option" data-quality="240">240p</div>
+                    </div>
+                </div>
+                
+                <button class="control-button fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telegram-style Popup -->
+    <div class="telegram-popup" id="telegramPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-avatar"></div>
+                <div class="popup-title">ꜱᴛᴜᴅʏ-ᴡᴏʀʟᴅ x ᴘᴡ</div>
+                <div class="popup-subtitle">156 Subscribers</div>
+            </div>
+            <div class="popup-body">
+                <div class="popup-description">
+                    Join our Telegram channel for latest updates, study materials, and live stream notifications!
+                </div>
+                <div class="popup-buttons">
+                    <a href="https://t.me/STUDY_WORLD_PW" target="_blank" class="popup-button primary">
+                        VIEW IN TELEGRAM
+                    </a>
+                    <button class="popup-button secondary" onclick="closePopup()">
+                        Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hls;
+        let video = document.getElementById('videoPlayer');
+        let playPauseBtn = document.querySelector('.play-pause');
+        let volumeBtn = document.querySelector('.volume');
+        let volumeSlider = document.querySelector('.volume-slider');
+        let progressBar = document.querySelector('.progress-bar');
+        let progress = document.querySelector('.progress');
+        let timeDisplay = document.querySelector('.time-display');
+        let fullscreenBtn = document.querySelector('.fullscreen');
+        let qualityMenu = document.querySelector('.quality-menu');
+        let qualityOptions = document.querySelector('.quality-options');
+        let qualityButton = document.querySelector('.quality-button');
+        let customControls = document.querySelector('.custom-controls');
+        let telegramPopup = document.getElementById('telegramPopup');
+        
+        // Get stream data from PHP
+        const streamData = {"url":"https:\/\/live-api.sb-api.workers.dev\/api\/pw-live\/api.php?base_url=https:\/\/d1hhi952ysmqpu.cloudfront.net\/\u0026start=1750080600\u0026Signature=XKKYjZFFxLGjP8KxSUOwiLYT15VA8RkiDZccr789h%7EoXl9HR0SP2FmUvT6amngkjV7qXZI4svvnhzuJEYnw6CWJnyQrYbD2h2GeZ-lyXw4SdL3byxIWJBUk-kis10EVFy1RMZRjuJ15LOV5-20vcyBbVIGJFEdQIIH0WJl504hBK7B5%7ErJI%7EvE96s317JVuJnuBXYhHKB1R8IZjAwCeGft7Gd1uWItJfB9qnRio1f638L66uQbwFP5zHDE6NtuONUVY0cLZ2tFLE1pqMArbEJkYmoYxkv1HhF1dwjj-v8L6QQkJNffuFoJcd9wOUL-nGQmvhdmuxGqE1Ie1hkPFfyA__\u0026Key-Pair-Id=APKAXVKMENFCRKTG5XE2\u0026Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWhoaTk1MnlzbXFwdS5jbG91ZGZyb250Lm5ldC8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzUwMDk1MTE4fX19XX0_","timestamp":"2025-06-16T09:33:31-04:00","batchName":"Udaan GOAT 2026"};
+        const batchId = "udaan-goat-2026";
+        
+        let streamStartTime = null;
+        let popupShown = false;
+
+        // Prevent default touch behaviors
+        document.addEventListener('touchmove', function(e) {
+            if (e.target.closest('.volume-slider') || e.target.closest('.progress-bar')) {
+                return;
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        // Handle controls visibility on touch
+        let controlsTimer;
+        function showControls() {
+            customControls.style.opacity = '1';
+            clearTimeout(controlsTimer);
+            controlsTimer = setTimeout(() => {
+                if (!video.paused) {
+                    customControls.style.opacity = '0.3';
+                }
+            }, 3000);
+        }
+
+        video.addEventListener('touchstart', showControls);
+        video.addEventListener('click', showControls);
+
+        // Handle quality menu
+        qualityButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            qualityMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!qualityMenu.contains(e.target)) {
+                qualityMenu.classList.remove('active');
+            }
+        });
+
+        // Telegram popup functions
+        function showTelegramPopup() {
+            if (!popupShown) {
+                telegramPopup.style.display = 'flex';
+                popupShown = true;
+            }
+        }
+
+        function closePopup() {
+            telegramPopup.style.display = 'none';
+        }
+
+        // Show popup after 1 minute of stream playing
+        function checkForPopup() {
+            if (streamStartTime && !popupShown && !video.paused) {
+                const elapsed = (Date.now() - streamStartTime) / 1000;
+                if (elapsed >= 60) { // 60 seconds = 1 minute
+                    showTelegramPopup();
+                }
+            }
+        }
+
+        // Check popup every 5 seconds
+        setInterval(checkForPopup, 5000);
+        
+        // Initialize player
+        function initializePlayer() {
+            if (!batchId) {
+                showError('No Batch ID Provided', 'Please add ?id=batch-name to the URL');
+                return;
+            }
+            
+            if (!streamData) {
+                showError('Stream Not Found', `No live stream found for batch: ${batchId}`);
+                return;
+            }
+            
+            const streamUrl = streamData.url || streamData.streamUrl || streamData.m3u8;
+            if (!streamUrl) {
+                showError('Invalid Stream Data', 'Stream URL not found in the data');
+                return;
+            }
+            
+            if (Hls.isSupported()) {
+                hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
+                    backBufferLength: 30,
+                    maxBufferLength: 90,
+                    startLevel: -1,
+                    capLevelToPlayerSize: true,
+                    maxMaxBufferLength: 600
+                });
+                
+                hls.loadSource(streamUrl);
+                hls.attachMedia(video);
+                
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    // Auto-play with user interaction
+                    video.play().catch(e => {
+                        console.log('Autoplay prevented:', e);
+                        // Show play button prominently
+                        playPauseBtn.style.transform = 'scale(1.2)';
+                        playPauseBtn.style.background = 'rgba(255, 71, 87, 0.8)';
+                    });
+                });
+                
+                // Handle quality selection
+                document.querySelectorAll('.quality-option').forEach(option => {
+                    option.onclick = () => {
+                        const quality = option.dataset.quality;
+                        if (quality === 'auto') {
+                            hls.currentLevel = -1;
+                        } else {
+                            const targetHeight = parseInt(quality);
+                            const levels = hls.levels;
+                            let bestMatch = 0;
+                            let minDiff = Infinity;
+                            
+                            levels.forEach((level, index) => {
+                                const diff = Math.abs(level.height - targetHeight);
+                                if (diff < minDiff) {
+                                    minDiff = diff;
+                                    bestMatch = index;
+                                }
+                            });
+                            
+                            hls.currentLevel = bestMatch;
+                        }
+                        qualityButton.textContent = option.textContent;
+                        qualityMenu.classList.remove('active');
+                    };
+                });
+                
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = streamUrl;
+                video.play().catch(e => console.log('Autoplay prevented:', e));
+            } else {
+                showError('Browser Not Supported', 'Your browser does not support HLS streaming');
+            }
+        }
+        
+        // Play/Pause
+        playPauseBtn.onclick = () => {
+            if (video.paused) {
+                video.play().then(() => {
+                    if (!streamStartTime) {
+                        streamStartTime = Date.now();
+                    }
+                });
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playPauseBtn.style.transform = 'scale(1)';
+                playPauseBtn.style.background = 'none';
+            } else {
+                video.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        };
+        
+        // Video event listeners
+        video.addEventListener('play', () => {
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            if (!streamStartTime) {
+                streamStartTime = Date.now();
+            }
+        });
+
+        video.addEventListener('pause', () => {
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+        
+        // Volume controls
+        volumeBtn.onclick = () => {
+            video.muted = !video.muted;
+            updateVolumeIcon();
+        };
+        
+        volumeSlider.oninput = (e) => {
+            video.volume = e.target.value / 100;
+            video.muted = false;
+            updateVolumeIcon();
+        };
+        
+        function updateVolumeIcon() {
+            if (video.muted || video.volume === 0) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else if (video.volume < 0.5) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        // Progress bar
+        video.ontimeupdate = () => {
+            if (video.duration) {
+                let percentage = (video.currentTime / video.duration) * 100;
+                progress.style.width = percentage + '%';
+                
+                let currentMinutes = Math.floor(video.currentTime / 60);
+                let currentSeconds = Math.floor(video.currentTime % 60);
+                let totalMinutes = Math.floor(video.duration / 60);
+                let totalSeconds = Math.floor(video.duration % 60);
+                
+                timeDisplay.textContent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')} / ${String(totalMinutes).padStart(2, '0')}:${String(totalSeconds).padStart(2, '0')}`;
+            }
+        };
+        
+        // Progress bar interaction
+        progressBar.addEventListener('click', (e) => {
+            if (video.duration) {
+                let rect = progressBar.getBoundingClientRect();
+                let percentage = (e.clientX - rect.left) / rect.width;
+                video.currentTime = percentage * video.duration;
+            }
+        });
+
+        // Touch support for progress bar
+        let isDragging = false;
+        progressBar.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        progressBar.addEventListener('touchmove', (e) => {
+            if (isDragging && video.duration) {
+                let rect = progressBar.getBoundingClientRect();
+                let touch = e.touches[0];
+                let percentage = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                video.currentTime = percentage * video.duration;
+                e.preventDefault();
+            }
+        });
+
+        progressBar.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+        
+        // Fullscreen
+        fullscreenBtn.onclick = () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+            } else {
+                document.exitFullscreen();
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            }
+        };
+
+        // Fullscreen change event
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+            } else {
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initializePlayer);
+        
+        // Error handling
+        function showError(title, message) {
+            let errorDiv = document.createElement('div');
+            errorDiv.className = 'error-screen';
+            errorDiv.innerHTML = `
+                <h2>${title}</h2>
+                <p>${message}</p>
+            `;
+            document.querySelector('.video-wrapper').appendChild(errorDiv);
+        }
+
+        // Prevent context menu on video
+        video.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Handle orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                if (video) {
+                    video.style.width = '100%';
+                    video.style.height = '100%';
+                }
+            }, 100);
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (hls) {
+                hls.destroy();
+            }
+        });
+    </script>
+</body>
+</html>

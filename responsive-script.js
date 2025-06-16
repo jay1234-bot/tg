@@ -131,36 +131,57 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Search functionality
         const searchInput = document.getElementById('search-input');
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                const activeTabId = document.querySelector('.tab-button.active').getAttribute('data-tab');
-                const activeTabContent = document.getElementById(`${activeTabId}-tab`);
-                const activeTabButtons = activeTabContent.querySelectorAll('.grid-button');
-                
-                // Only search within the active tab's buttons
-                activeTabButtons.forEach(button => {
-                    const buttonText = button.querySelector('.button-text').textContent.toLowerCase();
-                    if (buttonText.includes(searchTerm)) {
-                        button.style.display = 'flex';
-                    } else {
-                        button.style.display = 'none';
-                    }
-                });
+        const searchFilters = document.querySelectorAll('.search-filter');
+        let currentFilter = 'All';
+
+        function filterCards() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeTabId = document.querySelector('.tab-button.active').getAttribute('data-tab');
+            const activeTabContent = document.getElementById(`${activeTabId}-tab`);
+            const activeTabButtons = activeTabContent.querySelectorAll('.grid-button');
+
+            activeTabButtons.forEach(button => {
+                const title = button.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const subject = button.querySelector('.card-subject')?.textContent.toLowerCase() || '';
+                const badge = button.querySelector('.card-badge')?.textContent.toLowerCase() || '';
+                let matchesSearch = title.includes(searchTerm) || subject.includes(searchTerm) || badge.includes(searchTerm);
+                let matchesFilter = (currentFilter === 'All') || button.classList.contains(currentFilter.toLowerCase());
+                if (matchesSearch && matchesFilter) {
+                    button.style.display = 'flex';
+                } else {
+                    button.style.display = 'none';
+                }
             });
-            
-            // Clear search when switching tabs
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    searchInput.value = '';
-                    // Show all buttons when clearing search
-                    document.querySelectorAll('.grid-button').forEach(btn => {
-                        btn.style.display = 'flex';
-                    });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterCards);
+        }
+        if (searchFilters.length > 0) {
+            searchFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    searchFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.textContent.trim();
+                    filterCards();
                 });
             });
         }
+        // Clear search and filter when switching tabs
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (searchInput) searchInput.value = '';
+                if (searchFilters.length > 0) {
+                    searchFilters.forEach(f => f.classList.remove('active'));
+                    searchFilters[0].classList.add('active');
+                    currentFilter = 'All';
+                }
+                // Show all buttons when clearing search
+                document.querySelectorAll('.grid-button').forEach(btn => {
+                    btn.style.display = 'flex';
+                });
+            });
+        });
     }
 
     // Fix for iOS vh units issue

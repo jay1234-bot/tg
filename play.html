@@ -3,122 +3,433 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>STUDY WORLD - Player</title>
+  <title>EduVerse - Player</title>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://unpkg.com/feather-icons"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      background: #0a0a0a;
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
+        margin: 0;
+        background: #0d0d1e; /* Deep dark blue-purple background */
+        font-family: 'Orbitron', sans-serif; /* More futuristic font */
+        overflow-x: hidden;
+        color: #e0e0e0;
     }
+
+    /* Primary video player style */
     #player {
-      width: 100%;
-      height: calc(100vh - 5rem);
-      max-height: calc(100vh - 5rem);
-      object-fit: contain;
-      background: #000;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        object-fit: contain;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* More bouncy transition */
+        background-color: #000000;
+        border-radius: 20px; /* More pronounced rounding */
+        box-shadow: 0 0 80px rgba(0, 255, 255, 0.4), 0 0 120px rgba(255, 0, 255, 0.2); /* Stronger initial glow */
     }
-    .glass-effect {
-      background: rgba(17, 17, 17, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+
+    /* Enhanced Header: Top bar with logo and buttons */
+    .w-full.fixed.top-0 {
+        background: linear-gradient(90deg, #1f0b4d 0%, #3e0b5f 50%, #1f0b4d 100%) !important; /* Deeper purple gradient */
+        background-size: 300% 100%; /* Larger for more movement */
+        animation: plasmaGlow 20s ease infinite alternate; /* Slower, more ambient glow */
+        backdrop-filter: blur(25px) brightness(1.2); /* Even stronger blur and brightness */
+        border-bottom: 3px solid #00FFFF; /* Solid cyan border */
+        box-shadow: 
+            0 10px 40px rgba(0, 255, 255, 0.6),
+            0 0 80px rgba(255, 0, 255, 0.3); /* Intense dual neon shadow */
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        padding: 1.2rem 2.5rem !important; /* More generous padding */
+        z-index: 1000;
+        position: relative; /* For scanner effect */
     }
-    .note-button {
-      transform: translateY(0);
-      transition: all 0.3s ease;
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+    @keyframes plasmaGlow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
     }
-    .note-button:hover {
-      transform: translateY(-3px);
+
+    /* Neon Logo Text Animation */
+    .logo-text {
+        font-size: 2.2rem !important; /* Larger text */
+        font-weight: 900 !important;
+        background: linear-gradient(45deg, #00FFFF, #FF00FF, #FFFF00, #00FF00); /* More vibrant gradient */
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 
+            0 0 15px #00FFFF, 
+            0 0 30px #FF00FF, 
+            0 0 50px #00FF00,
+            0 0 70px rgba(255, 255, 0, 0.7); /* Multi-color, multi-level glow */
+        animation: 
+            neonTextPulse 1.5s ease-in-out infinite alternate,
+            neonScan 4s linear infinite; /* Text scan animation */
+        margin-left: 10px; /* Spacing from logo image */
+        letter-spacing: 2px; /* More spaced out */
+        position: relative;
+        display: inline-block; /* Essential for text-shadow and animation */
     }
-    .note-drawer {
-      background: rgba(17, 17, 17, 0.95);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+
+    @keyframes neonTextPulse {
+        from { text-shadow: 0 0 8px #00FFFF, 0 0 15px #FF00FF; }
+        to { text-shadow: 0 0 18px #00FFFF, 0 0 35px #FF00FF, 0 0 60px #00FF00, 0 0 80px rgba(255, 255, 0, 0.7); }
     }
-    @media (max-width: 640px) {
-      #player {
-        height: calc(100vh - 4rem);
-        max-height: calc(100vh - 4rem);
-      }
-      .note-button {
-        width: 48px;
-        height: 48px;
-        padding: 0.75rem;
-      }
-      .floating-notes {
-        bottom: 5.5rem !important;
-        right: 1rem !important;
-      }
-      .video-container {
-        margin-bottom: 4.5rem !important;
-      }
+
+    @keyframes neonScan {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
     }
-  </style>
+
+    /* Header Buttons (Settings, Download, Note) */
+    .w-full.fixed.top-0 button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(0, 255, 255, 0.6); /* Thicker, more vibrant border */
+        color: #fff;
+        padding: 15px !important; /* Even larger touch area */
+        border-radius: 50% !important;
+        width: 55px; /* Larger buttons */
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important; /* Smoother transition */
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); /* Stronger initial glow */
+        overflow: hidden;
+        position: relative;
+        font-size: 1.4rem; /* Larger icon size */
+        margin: 0 8px; /* More spacing between buttons */
+    }
+
+    .w-full.fixed.top-0 button:hover {
+        background: linear-gradient(45deg, #00FFFF, #FF00FF); /* Gradient hover background */
+        transform: scale(1.2) rotate(15deg); /* More exaggerated animation */
+        box-shadow: 
+            0 0 30px #00FFFF,
+            0 0 50px #FF00FF,
+            0 0 70px rgba(0, 255, 0, 0.5); /* Multi-color intense glow */
+        border-color: #FFFF00; /* Yellow border on hover */
+        color: #000; /* Icon color on hover */
+        animation: buttonPulse 1s infinite alternate; /* Pulsing effect on hover */
+    }
+
+    @keyframes buttonPulse {
+        from { transform: scale(1.15) rotate(15deg); }
+        to { transform: scale(1.2) rotate(17deg); }
+    }
+
+    .w-full.fixed.top-0 button:active {
+        transform: scale(0.85) rotate(0deg);
+        background: linear-gradient(45deg, #FF00FF, #00FFFF); /* Inverted gradient on active */
+        box-shadow: 0 0 20px #FF00FF;
+    }
+
+    /* Ripple Effect for Buttons */
+    .w-full.fixed.top-0 button::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.8); /* Brighter ripple */
+        transition: width 0.5s ease-out, height 0.5s ease-out;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+    }
+
+    .w-full.fixed.top-0 button:active::after {
+        width: 300%; /* Even larger ripple */
+        height: 300%;
+        transition: 0s;
+    }
+
+    /* Quality Label Styling */
+    #qualityLabel {
+        background: rgba(0, 255, 255, 0.3) !important; /* More prominent cyan */
+        backdrop-filter: blur(15px);
+        border: 2px solid #00FFFF;
+        color: #00FFFF;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00FFFF;
+        transition: all 0.4s ease !important;
+        padding: 8px 15px !important;
+        border-radius: 12px !important;
+        cursor: pointer;
+        font-size: 1rem; /* Clearer font size */
+        margin-right: 15px; /* Spacing from buttons */
+    }
+
+    #qualityLabel:hover {
+        background: rgba(0, 255, 255, 0.6) !important;
+        transform: translateY(-5px) scale(1.05); /* More pronounced lift and scale */
+        box-shadow: 0 0 25px #00FFFF, 0 0 40px #FF00FF; /* Dual glow */
+    }
+
+    /* Progress Bar Enhancement */
+    .w-full.fixed.top-\[4rem\].z-40.bg-transparent > div { /* Target the inner div of the progress bar container */
+        height: 10px !important; /* Much thicker bar */
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.1); /* Background for the track */
+        overflow: hidden;
+    }
+
+    #progressBar {
+        height: 100% !important; /* Take full height of its container */
+        background: linear-gradient(90deg, #FF00FF, #00FFFF, #FFFF00); /* Pink-Cyan-Yellow gradient */
+        box-shadow: 
+            0 0 30px rgba(255, 0, 255, 0.9),
+            0 0 50px rgba(0, 255, 255, 0.7),
+            0 0 70px rgba(255, 255, 0, 0.5); /* Multi-color intense glow */
+        border-radius: 5px;
+        transition: all 0.5s ease-in-out !important;
+        z-index: 999;
+        position: relative; /* For internal effects */
+        animation: progressGlow 3s ease infinite alternate; /* Pulsing glow animation */
+    }
+
+    @keyframes progressGlow {
+        from { box-shadow: 0 0 25px rgba(255, 0, 255, 0.7); }
+        to { box-shadow: 0 0 40px rgba(0, 255, 255, 0.9), 0 0 60px rgba(255, 255, 0, 0.7); }
+    }
+
+    /* Notes Drawer Enhancement */
+    #noteDrawer {
+        background: rgba(5, 5, 10, 0.98) !important; /* Even darker, near-black */
+        backdrop-filter: blur(30px) saturate(1.5); /* Stronger blur and color pop */
+        border-top: 3px solid #00FFFF; /* Prominent cyan top border */
+        box-shadow: 
+            0 -25px 80px rgba(0, 255, 255, 0.7), 
+            0 -10px 40px rgba(255, 0, 255, 0.5); /* More intense dual glow from bottom */
+        border-radius: 30px 30px 0 0 !important; /* More rounded top corners */
+        max-height: 80% !important; /* More space for notes on large screens */
+        padding: 3rem !important; /* More spacious padding */
+        color: #e0e0e0;
+        animation: drawerSlideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes drawerSlideUp {
+        from { transform: translateY(100%); opacity: 0.5; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    #noteDrawer.translate-y-full {
+        animation: drawerSlideDown 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes drawerSlideDown {
+        from { transform: translateY(0); opacity: 1; }
+        to { transform: translateY(100%); opacity: 0.5; }
+    }
+
+
+    #noteDrawer h2 {
+        color: #00FFFF;
+        text-shadow: 0 0 15px #00FFFF, 0 0 25px rgba(0, 255, 255, 0.5); /* Stronger neon title glow */
+        font-size: 1.8rem;
+    }
+
+    #noteList > div {
+        background: rgba(15, 15, 30, 0.95) !important; /* Darker, slightly purplish note item background */
+        border: 2px solid rgba(255, 0, 255, 0.5); /* More prominent pink border */
+        transition: all 0.4s ease-in-out !important;
+        border-radius: 15px; /* Even more rounded */
+        padding: 20px !important;
+        margin-bottom: 20px !important;
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.2); /* Subtle initial glow */
+        position: relative;
+        overflow: hidden;
+    }
+
+    #noteList > div:hover {
+        transform: translateY(-8px) scale(1.03); /* More pronounced lift and grow */
+        background: rgba(25, 25, 40, 0.98) !important;
+        box-shadow: 
+            0 10px 30px rgba(255, 0, 255, 0.6),
+            0 0 25px rgba(0, 255, 255, 0.4), 
+            inset 0 0 15px rgba(255, 0, 255, 0.4); /* Intense glow with inner glow */
+    }
+
+    .note-item p:first-child {
+        color: #00FFFF;
+        font-weight: 800;
+        text-shadow: 0 0 8px #00FFFF;
+        margin-bottom: 8px;
+    }
+
+    .note-item p:last-child {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #c0c0c0;
+    }
+
+    .note-item button {
+        color: #FF00FF;
+        font-size: 1.3rem;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .note-item button:hover {
+        color: #00FFFF;
+        transform: scale(1.3) rotate(5deg);
+    }
+
+    /* Video Wrapper container - adjust padding */
+    .min-h-screen.flex.justify-center.items-center {
+        padding: 0 !important;
+        background: #0d0d1e; /* Match body background */
+    }
+
+    /* Fullscreen Mode */
+    #player:fullscreen {
+        object-fit: contain !important;
+        background-color: #000;
+        border-radius: 0 !important; /* No border-radius in fullscreen */
+        box-shadow: none !important; /* No shadow in fullscreen */
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .w-full.fixed.top-0 {
+            padding: 0.7rem 0.6rem !important; /* Slightly reduced padding to give more horizontal space */
+            border-bottom: 2px solid rgba(0, 255, 255, 0.4);
+        }
+        .w-full.fixed.top-0 button {
+            width: 38px; /* Slightly smaller buttons */
+            height: 38px;
+            padding: 8px !important;
+            font-size: 1rem;
+            margin: 0 3px; /* Reduced margin between buttons */
+        }
+        .logo-text {
+            font-size: 1.2rem !important; /* Significantly reduce font size for small screens */
+            letter-spacing: 1px; /* Slightly reduce letter spacing */
+            margin-left: 3px; /* Reduced spacing from logo image */
+        }
+        #qualityLabel {
+            font-size: 0.6rem !important;
+            padding: 2px 6px !important;
+            margin-right: 8px; /* Reduced spacing */
+        }
+        .w-full.fixed.top-\[4rem\].z-40.bg-transparent > div {
+            height: 6px !important;
+        }
+        #progressBar {
+            height: 100% !important;
+        }
+        #noteDrawer {
+            border-radius: 20px 20px 0 0 !important;
+            padding: 1.2rem !important;
+            max-height: 90% !important;
+        }
+        #noteDrawer h2 {
+            font-size: 1.3rem;
+        }
+        #noteList > div {
+            padding: 12px !important;
+            border-radius: 8px;
+            margin-bottom: 12px !important;
+        }
+        .note-item p {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* General Button/Interactive Element Focus for Accessibility */
+    button:focus-visible,
+    #qualityLabel:focus-visible,
+    #noteList > div:focus-visible {
+      outline: 3px solid #00FFFF; /* Thicker cyan outline */
+      outline-offset: 4px;
+      box-shadow: 0 0 0 5px rgba(0, 255, 255, 0.6); /* More prominent outer glow on focus */
+    }
+</style>
 </head>
 <body>
 
 <!-- Header -->
-<div class="w-full fixed top-0 left-0 z-50 px-4 py-3 glass-effect shadow-2xl text-white border-b border-gray-800">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <img src="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" class="h-10 w-10 rounded-xl border-2 border-purple-500 shadow-lg shadow-purple-500/20" />
-      <span class="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent" style="font-family: 'Orbitron'">STUDY - WORLD</span>
-    </div>
-    <div class="flex gap-4 items-center">
-      <span id="qualityLabel" class="text-sm px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 hidden"></span>
-      <button onclick="changeQuality()" class="p-2 rounded-lg hover:bg-purple-500/20 transition-colors" title="Change Quality"><i data-feather="settings"></i></button>
-      <button onclick="copyM3U8()" class="p-2 rounded-lg hover:bg-purple-500/20 transition-colors" title="Copy Download Link"><i data-feather="download"></i></button>
-    </div>
+<!-- Updated Header with Note Buttons -->
+  <div class="header w-full fixed top-0 left-0 z-50 px-4 py-3 flex items-center justify-between shadow-xl text-white">
+  <!-- Left: Logo -->
+  <div class="flex items-center space-x-2">
+    <img src="#" class="h-10 w-10 rounded-full border-2 border-white" />
+    <span class="text-xl font-bold" style="font-family: 'Orbitron'">STUDY - WORLD</span>
+  </div>
+
+  <!-- Center: (Optional placeholder space or search later) -->
+
+  <!-- Right: Buttons -->
+  <div class="flex gap-4 items-center">
+    <span
+      id="qualityLabel"
+  class="text-sm font-bold px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-sm text-white hidden"
+  ></span>
+      
+    <!-- Settings -->
+    <button onclick="changeQuality()" class="hover:text-gray-300" title="Video Settings">
+      <i data-feather="settings"></i>
+    </button>
+
+    <!-- Download -->
+    <button onclick="copyM3U8()" class="hover:text-gray-300" title="Copy m3u8">
+      <i data-feather="download"></i>
+    </button>
+
+    <!-- Make Note -->
+    <button onclick="makeNote()" class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full shadow transition-all duration-300" title="Make Note">
+      <i data-feather="edit-2" class="w-4 h-4"></i>
+    </button>
+
+    <!-- View Notes -->
+    <button onclick="toggleNoteDrawer()" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-full shadow transition-all duration-300" title="View Notes">
+      <i data-feather="book-open" class="w-4 h-4"></i>
+    </button>
   </div>
 </div>
-
 <!-- Glowing Progress Bar -->
 <div class="w-full fixed top-[4rem] z-40 bg-transparent">
-  <div class="relative w-full h-1.5">
-    <div id="progressBar" class="absolute left-0 top-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_15px_2px_rgba(168,85,247,0.5)] transition-all duration-300 ease-in-out" style="width: 0%;"></div>
+  <div class="relative w-full h-1">
+    <div id="progressBar" class="absolute left-0 top-0 h-full bg-red-500 shadow-[0_0_10px_2px_rgba(239,68,68,0.7)] transition-all duration-300 ease-in-out" style="width: 0%;"></div>
   </div>
 </div>
 
-<!-- Video Player -->
-<div class="w-full mt-20 bg-black video-container" style="margin-bottom: 3.5rem;">
-  <video id="player" controls poster="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140"></video>
-</div>
-
-<!-- Floating Note Buttons -->
-<div class="fixed z-50 bottom-24 right-8 flex flex-col gap-4 floating-notes">
-  <button onclick="makeNote()" class="note-button bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-4 rounded-2xl shadow-xl transition-all duration-300" title="Make Note">
-    <i data-feather="edit-2" class="w-5 h-5"></i>
-  </button>
-  <button onclick="toggleNoteDrawer()" class="note-button bg-gray-800/90 hover:bg-gray-700/90 text-white p-4 rounded-2xl shadow-xl transition-all duration-300" title="View Notes">
-    <i data-feather="book-open" class="w-5 h-5"></i>
-  </button>
-</div>
-
-<!-- Notes Drawer -->
-<div id="noteDrawer" class="fixed bottom-0 left-0 w-full max-h-[60%] note-drawer text-white overflow-y-auto rounded-t-3xl shadow-2xl transform translate-y-full transition-transform duration-300 z-50">
-  <div class="sticky top-0 glass-effect p-4 rounded-t-3xl border-b border-gray-800">
-    <div class="flex justify-between items-center">
-      <h2 class="text-xl font-semibold flex items-center gap-2">
-        <i data-feather="book-open" class="w-5 h-5 text-purple-400"></i>
-        My Notes
-      </h2>
-      <button onclick="toggleNoteDrawer()" class="p-2 rounded-lg hover:bg-gray-800/50 transition-colors">
-        <i data-feather="x" class="w-5 h-5"></i>
+<!-- Video Container -->
+<div class="video-container">
+  <video
+    id="player"
+    controls
+    poster="#"
+    class="w-full h-full"
+  ></video>
+  
+  <!-- Custom Controls (will be shown on hover) -->
+  <div class="custom-controls">
+    <div class="flex justify-center items-center space-x-4">
+      <button class="control-button" onclick="document.getElementById('player').play()">
+        <i data-feather="play"></i>
+      </button>
+      <button class="control-button" onclick="document.getElementById('player').pause()">
+        <i data-feather="pause"></i>
+      </button>
+      <button class="control-button" onclick="toggleFullscreen()">
+        <i data-feather="maximize"></i>
       </button>
     </div>
   </div>
-  <div id="noteList" class="p-4 space-y-4 max-w-3xl mx-auto"></div>
+</div>
+
+<!-- Notes Drawer -->
+<div id="noteDrawer" class="fixed bottom-0 left-0 w-full max-h-[50%] text-white overflow-y-auto rounded-t-2xl transform translate-y-full transition-transform duration-300 z-50 p-4">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-semibold">📒 My Notes</h2>
+    <button onclick="toggleNoteDrawer()" class="text-gray-400 hover:text-white"><i data-feather="x"></i></button>
+  </div>
+  <div id="noteList" class="space-y-3"></div>
 </div>
 
 <script>
@@ -145,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("load", () => {
     const qualityLabel = document.getElementById("qualityLabel");
     const qCode = getQualityFromUrl(originalUrl);
-    qualityLabel.textContent = `Quality: ${getQualityLabel(qCode)}`;
+    qualityLabel.textContent = `${getQualityLabel(qCode)}`;
     qualityLabel.classList.remove("hidden");
   });
 
@@ -315,34 +626,21 @@ document.addEventListener("DOMContentLoaded", () => {
     list.innerHTML = "";
 
     if (notes.length === 0) {
-      list.innerHTML = `
-        <div class="text-center py-8">
-          <i data-feather="book-open" class="w-12 h-12 mx-auto text-gray-600 mb-3"></i>
-          <p class="text-gray-400">No notes yet. Start taking notes while watching!</p>
-        </div>`;
-      feather.replace();
+      list.innerHTML = `<p class="text-gray-400 text-sm">No notes yet.</p>`;
       return;
     }
 
     notes.forEach(note => {
       const item = document.createElement("div");
-      item.className = "bg-gray-800/50 p-4 rounded-xl shadow-lg border border-gray-700/50 hover:border-purple-500/30 transition-colors";
+      item.className = "bg-gray-800 p-3 rounded-lg shadow flex justify-between items-start";
       item.innerHTML = `
-        <div class="flex justify-between items-start gap-4">
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-medium">${note.timestamp}</span>
-            </div>
-            <p class="text-gray-200 leading-relaxed">${note.text}</p>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="editNote(${note.id})" class="p-2 rounded-lg hover:bg-yellow-500/20 text-yellow-400 transition-colors" title="Edit">
-              <i data-feather="edit-3" class="w-4 h-4"></i>
-            </button>
-            <button onclick="deleteNote(${note.id})" class="p-2 rounded-lg hover:bg-red-500/20 text-red-400 transition-colors" title="Delete">
-              <i data-feather="trash-2" class="w-4 h-4"></i>
-            </button>
-          </div>
+        <div class="flex-1">
+          <p class="text-sm text-gray-300 mb-1">⏱ <span class="font-semibold">${note.timestamp}</span></p>
+          <p class="text-sm">${note.text}</p>
+        </div>
+        <div class="flex gap-2 ml-3">
+          <button onclick="editNote(${note.id})" class="text-yellow-400 hover:text-yellow-300" title="Edit"><i data-feather="edit-3"></i></button>
+          <button onclick="deleteNote(${note.id})" class="text-red-500 hover:text-red-400" title="Delete"><i data-feather="trash-2"></i></button>
         </div>
       `;
       list.appendChild(item);
@@ -412,8 +710,98 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Add fullscreen toggle function
+  function toggleFullscreen() {
+    const container = document.querySelector('.video-container');
+    if (!document.fullscreenElement) {
+      container.requestFullscreen().catch(err => {
+        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Add hover effect to buttons
+  document.querySelectorAll('.control-button').forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      button.classList.add('active');
+    });
+    button.addEventListener('mouseleave', () => {
+      button.classList.remove('active');
+    });
+  });
+
+  // Enhance video container interaction
+  const videoContainer = document.querySelector('.video-container');
+  const customControls = document.querySelector('.custom-controls');
+  let controlsTimeout;
+
+  videoContainer.addEventListener('mousemove', () => {
+    customControls.style.opacity = '1';
+    clearTimeout(controlsTimeout);
+    controlsTimeout = setTimeout(() => {
+      if (!videoContainer.matches(':hover')) {
+        customControls.style.opacity = '0';
+      }
+    }, 2000);
+  });
+
+  // Add loading state
+  const player = document.getElementById('player');
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'loading';
+  loadingDiv.innerHTML = '<i data-feather="loader"></i>';
+  videoContainer.appendChild(loadingDiv);
+
+  player.addEventListener('loadeddata', () => {
+    loadingDiv.style.display = 'none';
+  });
+
+  player.addEventListener('waiting', () => {
+    loadingDiv.style.display = 'block';
+  });
+
 });
 </script>
+  <script>
+  const player = document.getElementById('player');
+  const playPause = document.getElementById('playPause');
+  const seekBar = document.getElementById('seekBar');
+  const volume = document.getElementById('volume');
+  const speed = document.getElementById('speed');
+
+  // Play/Pause
+  playPause.addEventListener('click', () => {
+    if (player.paused) {
+      player.play();
+      playPause.textContent = 'Pause';
+    } else {
+      player.pause();
+      playPause.textContent = 'Play';
+    }
+  });
+
+  // Seek bar update
+  player.addEventListener('timeupdate', () => {
+    seekBar.value = (player.currentTime / player.duration) * 100 || 0;
+  });
+
+  // Seek bar input
+  seekBar.addEventListener('input', () => {
+    player.currentTime = (seekBar.value / 100) * player.duration;
+  });
+
+  // Volume control
+  volume.addEventListener('input', () => {
+    player.volume = volume.value;
+  });
+
+  // Playback speed
+  speed.addEventListener('change', () => {
+    player.playbackRate = speed.value;
+  });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udaan Batch - STUDY-WORLD</title>
+    <link rel="icon" href="https://ik.imagekit.io/krishan1234/STUDY.png?updatedAt=1745579324140" type="image/png">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff00;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6600;
+            --neon-red: #ff0066;
+            --neon-teal: #00ffcc;
+            --dark-bg: #080808;
+            --darker-bg: #050505;
+            --glass-bg: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.08) 0%, transparent 30%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(157, 0, 255, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 
+                0 0 10px var(--neon-blue),
+                0 0 20px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--neon-blue), 0 0 30px rgba(0, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 10px var(--neon-blue);
+            }
+        }
+        
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% auto;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 300% center;
+            }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .nav-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+        
+        .active::after {
+            width: 100%;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .banner-image {
+            width: 100%;
+            max-width: 500px;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: none;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .banner-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: text-flicker 5s linear infinite;
+        }
+        
+        @keyframes text-flicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            92% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            93% {
+                opacity: 0.8;
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            94% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            97% {
+                opacity: 0.9;
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+            98% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            }
+        }
+        
+        /* Button Grid Styles */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            width: 100%;
+            margin-top: 32px;
+        }
+        
+        .grid-button {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 32px 24px 24px 24px;
+            background: rgba(30, 30, 40, 0.55);
+            border: 1.5px solid rgba(255,255,255,0.13);
+            border-radius: 28px;
+            text-decoration: none;
+            color: #eaffff;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 0 0 rgba(0,255,255,0);
+            backdrop-filter: blur(14px);
+            overflow: hidden;
+            transition: box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1), transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: cardFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        .button-grid .grid-button:nth-child(1) { animation-delay: 0.05s; }
+        .button-grid .grid-button:nth-child(2) { animation-delay: 0.12s; }
+        .button-grid .grid-button:nth-child(3) { animation-delay: 0.19s; }
+        .button-grid .grid-button:nth-child(4) { animation-delay: 0.26s; }
+        .button-grid .grid-button:nth-child(5) { animation-delay: 0.33s; }
+        .button-grid .grid-button:nth-child(6) { animation-delay: 0.40s; }
+        .button-grid .grid-button:nth-child(7) { animation-delay: 0.47s; }
+        .button-grid .grid-button:nth-child(8) { animation-delay: 0.54s; }
+        .button-grid .grid-button:nth-child(9) { animation-delay: 0.61s; }
+        .button-grid .grid-button:nth-child(10) { animation-delay: 0.68s; }
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .grid-button:hover {
+            transform: translateY(-10px) scale(1.025);
+            box-shadow: 0 16px 48px rgba(0,255,255,0.13), 0 0 32px 0px var(--neon-blue);
+        }
+        .button-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.1rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,255,255,0.13);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .grid-button:hover .button-icon {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+            transform: scale(1.09) rotate(5deg);
+        }
+        .button-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            margin-bottom: 18px;
+            color: #eaffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        .explore-btn {
+            margin-top: auto;
+            align-self: flex-end;
+            padding: 10px 28px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border: none;
+            border-radius: 22px;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
+            box-shadow: 0 2px 12px 0px var(--neon-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            outline: none;
+        }
+        .explore-btn i {
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        .explore-btn:hover {
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            box-shadow: 0 4px 24px 0px var(--neon-pink);
+            transform: scale(1.07) translateY(-2px);
+        }
+        .explore-btn:hover i {
+            transform: translateX(6px) scale(1.15);
+        }
+        @media (max-width: 900px) {
+            .button-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 16px;
+            }
+            .grid-button {
+                padding: 22px 12px 14px 12px;
+                border-radius: 18px;
+            }
+            .button-icon {
+                width: 38px; height: 38px; font-size: 1.2rem; border-radius: 10px;
+            }
+            .button-text {
+                font-size: 1.05rem;
+            }
+            .explore-btn {
+                padding: 7px 16px; font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .grid-button {
+                padding: 12px 6px 8px 6px;
+                border-radius: 12px;
+            }
+            .button-icon {
+                width: 28px; height: 28px; font-size: 0.9rem; border-radius: 7px;
+            }
+            .button-text {
+                font-size: 0.92rem;
+            }
+            .explore-btn {
+                padding: 5px 10px; font-size: 0.85rem;
+            }
+        }
+        /* --- Distinctive Header & Banner --- */
+        .banner-image {
+            position: relative;
+            z-index: 1;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,255,255,0.10);
+            overflow: hidden;
+        }
+        .banner-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, rgba(0,255,255,0.13), rgba(157,0,255,0.13));
+            z-index: 2;
+            pointer-events: none;
+        }
+        .page-title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: text-flicker 5s linear infinite;
+            letter-spacing: 1.5px;
+        }
+        /* --- Footer Polish --- */
+        footer {
+            background: linear-gradient(120deg, rgba(0,0,0,0.92), rgba(0,255,255,0.10) 100%);
+            box-shadow: 0 -8px 32px rgba(0,255,255,0.10);
+            border-top: 1.5px solid rgba(0,255,255,0.08);
+            padding: 3.5rem 0 1.5rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 5rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+        .footer-logo-img {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        .footer-logo-img img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .footer-description {
+            color: #b8eaff;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 10px rgba(0,255,255,0.10);
+        }
+        .social-icon:hover {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: #fff;
+            box-shadow: 0 4px 16px 0px var(--neon-blue);
+        }
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 1.1rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 38px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+        }
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+        .footer-links a {
+            color: #b8eaff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 1.1rem;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .footer-links a:hover::before {
+            color: var(--neon-pink);
+        }
+        .footer-contact h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 1.1rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            color: #b8eaff;
+            font-size: 1rem;
+        }
+        .contact-icon {
+            margin-right: 0.8rem;
+            color: var(--neon-blue);
+            font-size: 1.1rem;
+            min-width: 20px;
+            transition: color 0.3s;
+        }
+        .contact-icon:hover {
+            color: var(--neon-pink);
+        }
+        .contact-text {
+            line-height: 1.5;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .copyright {
+            color: #b8eaff;
+            font-size: 0.98rem;
+        }
+        .copyright a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .copyright a:hover {
+            color: var(--neon-pink);
+        }
+        @media (max-width: 900px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 0.5rem;
+            }
+            .footer-logo-img img {
+                width: 36px;
+                height: 36px;
+            }
+            .footer-logo-text {
+                font-size: 1.1rem;
+            }
+            .footer-links h3, .footer-contact h3 {
+                font-size: 1rem;
+            }
+            .footer-links a, .contact-item {
+                font-size: 0.95rem;
+            }
+            .footer-bottom {
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://ik.imagekit.io">
+    <!-- Responsive styles -->
+    <link rel="stylesheet" href="responsive-template.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                <span class="logo-text">STUDY-WORLD</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                <li><a href="index.html#classes" class="nav-link">Classes</a></li>
+                <li><a href="next-toppers.html" class="nav-link">Next Toppers</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <img src="https://ik.imagekit.io/krishan1234/udaan.jpg?updatedAt=1749481530932" alt="Aarambh 2025 Batch" class="banner-image">
+        <h1 class="page-title">UDAAN BATCH</h1>
+        
+        <div class="button-grid">
+            <!-- Live Classes -->
+            <a href="udaanlive.html" class="grid-button live-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="button-text">Live Classes <span class="live-indicator">LIVE</span></div>
+            </a>
+            
+            <!-- Weekly Planner
+            <a href="https://ik.imagekit.io/krishan1234/photo_2025-05-01_19-34-03.jpg?updatedAt=1746108293411" class="grid-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="button-text">Weekly Planner</div>
+            </a> -->
+            
+            <!-- Time Table
+            <a href="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/sample/57643650_Aarambh%2010th%20Timetable.png" class="grid-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="button-text">Time Table</div>
+            </a> -->
+            
+            <!-- Official Welcome Video
+            <a href="welcome.html" class="grid-button" target="_blank">
+                <div class="button-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="button-text">Official Welcome Video</div>
+            </a> -->
+            
+            <!-- physics -->
+            <!-- <a href="udaanphysics.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="button-text">Physics</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+            
+            <!-- Science -->
+            <!-- <a href="udaanChemistry.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="button-text">Chemistry</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+            
+            <!-- Social Science -->
+            <!-- <a href="udaanbiology.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <div class="button-text">Biology</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+            
+            <!-- Hindi -->
+            <!-- <a href="udaanmaths.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="button-text">Maths</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+            
+            <!-- English -->
+            <!-- <a href="udaanenglish.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="button-text">English (L&LI)</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+            
+            <!-- IT -->
+            <!-- <a href="udaansst.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="button-text">SST</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+
+            <!-- Hindi (A) -->
+            <!-- <a href="udaanhindia.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="button-text">Hindi (A)</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+
+            <!-- English (Communicative) -->
+            <!-- <a href="udaanEnglishc.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="button-text">English (Communicative)</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+
+             <!-- Hindi (b) -->
+             <!-- <a href="udaanhindib.html" class="grid-button">
+                <div class="button-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="button-text">Hindi (B)</div>
+                <button class="explore-btn">Go <i class="fas fa-arrow-right"></i></button>
+            </a> -->
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-img">
+                    <img src="https://ik.imagekit.io/krishan1234/56dd5367-5162-424e-8506-3e64e05a5931.png?updatedAt=1744302750689" alt="STUDY-WORLD Logo">
+                    <span class="footer-logo-text">STUDY-WORLD</span>
+                </div>
+                <p class="footer-description">Your gateway to academic excellence. We provide free educational resources for students of Class 10th and 11th.</p>
+                <div class="footer-social">
+                    <a href="https://t.me/CENSORED_POLITICSS" class="social-icon" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#classes">Classes</a></li>
+                    <li><a href="next-toppers.html">Next Toppers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Classes</h3>
+                <ul>
+                    <li><a href="class10.html">Class 10</a></li>
+                    <li><a href="class11.html">Class 11</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        Krishan321@fearlessmails.com
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-text">
+                        @CENSORED_POLITICSS
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 STUDY-WORLD. All rights reserved. Designed with <i class="fas fa-heart" style="color: var(--neon-pink);"></i> for students.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for mobile menu toggle -->
+    <!-- Responsive and animation script -->
+    <script src="responsive-script.js"></script>
+</body>
+</html>
